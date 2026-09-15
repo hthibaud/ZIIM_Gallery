@@ -4,7 +4,7 @@ export default function HeaderComponent() {
       <div className="max-w-7xl mx-auto h-32 flex justify-between items-center p-4">
         <h1 className="text-white text-4xl font-bold">ZIIM Gallery</h1>
 
-        <ul className="flex space-x-8 text-white text-lg font-medium hover:text-blue cursor-pointer">
+        <ul className="flex space-x-8 text-white text-lg font-medium cursor-pointer">
           <li>
             <a href="/user/0">profile</a>
           </li>
