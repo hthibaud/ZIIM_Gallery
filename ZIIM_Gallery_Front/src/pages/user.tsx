@@ -1,10 +1,13 @@
-import UserPicture from "../components/user/UserPicture";
+import { useParams } from "react-router-dom";
+import UserBannerCard from "../components/user/userBannerCard";
 
 export default function User(){
+    const { id } = useParams<{ id: string }>();
+
     return (
         <>
-            <UserPicture id="" />
-            <h1>User</h1>
+            <UserBannerCard id={id ?? ""} />
+            <h1>User ID : {id}</h1>
         </>
     );
 }
