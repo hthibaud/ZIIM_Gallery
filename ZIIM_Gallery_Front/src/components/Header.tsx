@@ -1,9 +1,18 @@
-export default function HeaderComponent(){
-    return (
-      <div className="h-32 bg-gray-800 shadow-lg">
-        <h1 className="py-12 text-white text-4xl text-center">
-          ZIIM Gallery
-        </h1>
-      </div>  
-    )
+export default function HeaderComponent() {
+  return (
+    <header className="bg-gray-800 shadow-lg">
+      <div className="max-w-7xl mx-auto h-32 flex justify-between items-center p-4">
+        <h1 className="text-white text-4xl font-bold">ZIIM Gallery</h1>
+
+        <ul className="flex space-x-8 text-white text-lg font-medium hover:text-blue cursor-pointer">
+          <li>
+            <a href="/user/:id">profile</a>
+          </li>
+          <li>
+            <a href="/mainGallery">Main Gallery</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+  );
 }
