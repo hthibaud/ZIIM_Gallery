@@ -6,11 +6,14 @@ function App() {
 
   return (
     <>
-      <Router/>
+
+
       <div className="bg-gray-900">
         <header>
           <HeaderComponent />
         </header>
+        <Router/>
+  
       </div>
     </>
   )
