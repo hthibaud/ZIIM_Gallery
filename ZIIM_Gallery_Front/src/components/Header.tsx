@@ -6,7 +6,7 @@ export default function HeaderComponent() {
 
         <ul className="flex space-x-8 text-white text-lg font-medium hover:text-blue cursor-pointer">
           <li>
-            <a href="/user/:id">profile</a>
+            <a href="/user/0">profile</a>
           </li>
           <li>
             <a href="/mainGallery">Main Gallery</a>
