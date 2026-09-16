@@ -1,0 +1,29 @@
+services:
+  minio:
+    image: quay.io/minio/minio:latest
+    ports:
+      - "9000:9000" # API S3
+      - "9001:9001" # Console Web
+    environment:
+      MINIO_ROOT_USER: admin_user
+      MINIO_ROOT_PASSWORD: admin_password
+      MINIO_API_CORS_ALLOW_ORIGIN: "http://localhost:5173" 
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  # La base de données
+  postgres:
+    image: postgres:18
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: artgallery
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  minio_data:
+  postgres_data:
