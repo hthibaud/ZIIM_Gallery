@@ -2,7 +2,7 @@ export default function FooterComponent() {
 
   return (
     <footer className="bg-gray-800 shadow-lg">
-      <div className="max-w-7xl mx-auto h-32 flex justify-between items-center p-4">
+      <div className="max-w-7xl mx-auto h-48 flex justify-between items-center p-4">
         <h1 className="text-white text-4xl font-bold">ZIIM Gallery</h1>
 
         <p className="text-gray-400">

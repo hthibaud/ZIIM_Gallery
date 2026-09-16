@@ -7,12 +7,10 @@ function App() {
 
   return (
     <>
-
       <div className="bg-gray-900">
-          <HeaderComponent />
-            <Router/>
-          <FooterComponent />
-  
+          <Router />
+          {/* <HeaderComponent />
+          <FooterComponent /> */}
       </div>
     </>
   )
