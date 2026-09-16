@@ -3,7 +3,7 @@ import PaintCarousel from '../components/home/paintCarousel';
 
 export default function Homepage() {
   return (
-    <main className="min-h-screen bg-neutral-950">
+    <main className="min-h-screen bg-[#180d2e]">
       <Hero />
       <PaintCarousel />
     </main>
