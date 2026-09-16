@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import User from "./pages/user";
+import AuthentificationPage from "./components/utils/Authentification";
 
 export default function Router(){
     return (
@@ -10,6 +11,7 @@ export default function Router(){
                 <Route path="/" element={<Home>} />
                 */}
                 <Route path="/user/:id" element={<User />} />
+	            <Route path ="/authentification" element = {<AuthentificationPage />} />           
             </Routes>
         </BrowserRouter>
     )
