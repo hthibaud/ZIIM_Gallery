@@ -1,3 +1,4 @@
+import UserHeaderParam from "./userHeaderParam";
 import UserPicture from "./userPicture";
 
 type UserBannerCardProps = {
@@ -11,11 +12,13 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
     const nb_suscribe = 0
     const username = "Username"
     const gallery_name = "User Gallery"
+    const connectedUserId = "0"
     return (
         <section className="overflow-hidden border-b border-slate-200 bg-white text-left shadow-sm dark:border-slate-700 dark:bg-slate-900">
             <div className="relative h-40 overflow-hidden bg-slate-950 sm:h-52">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#0ea5e9_0,transparent_35%),radial-gradient(circle_at_80%_80%,#f97316_0,transparent_40%)] opacity-90" />
                 <div className="absolute inset-0 bg-slate-950/30" />
+                {connectedUserId === id && <UserHeaderParam />}
                 <span className="absolute bottom-4 right-5 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
                     {gallery_name}
                 </span>
