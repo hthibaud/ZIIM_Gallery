@@ -25,3 +25,9 @@ First session:
         - Home Components: Built the initial homepage sections under components/home/, including the Hero section (with hero.png), PaintCarousel, and HomeSectionProfile.
 
         - Assets & Base Layout: Integrated SVG/PNG assets and wired up the core application container (App.tsx, index.css, App.css).
+
+Second session:
+        16/09/26
+        Thibaud: 
+            - Added a simple searchbar to the header
+            
