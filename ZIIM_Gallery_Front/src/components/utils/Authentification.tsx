@@ -10,12 +10,12 @@ export default function AuthentificationComponent(){
                 <form method="post" action="/register">
                     
                     <div className="mb-4">
-                        <input type="text" id="username" name="username" placeholder="votrePseudo" required
+                        <input type="text" id="username" name="username" placeholder="pseudo" required
                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900" />
                     </div>
 
                     <div className="mb-4">
-                        <input type="email" id="email" name="email" placeholder=" votre@email.com" required
+                        <input type="email" id="email" name="email" placeholder=" mail@email.com" required
                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900" />
                     </div>
 
