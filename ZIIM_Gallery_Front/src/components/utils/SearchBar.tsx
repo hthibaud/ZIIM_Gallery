@@ -11,8 +11,8 @@ export default function SearchBar() {
     <div>
       <input
         type="text"
-        placeholder="Search for arts, artists, mood..."
-        className="bg-gray-700 rounded-lg m-4 p-2 min-w-2xl text-gray-100"
+        placeholder="⌕ Cherche des oeuvres, des artistes, un mood..."
+        className="m-4 min-w-2xl rounded-lg bg-gray-700 p-2 text-gray-100 outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900"
         value={searchQuery}
         onChange={handleSearchChange}
       ></input>

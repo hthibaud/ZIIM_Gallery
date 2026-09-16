@@ -24,12 +24,12 @@ export default function AuthentificationComponent(){
                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900" />
                     </div>
 
-                    <button type="submit" className="mt-4 w-full rounded-md bg-indigo-800 px-4 py-2 font-semibold text-white transition-colors hover:bg-indigo-900">S'inscrire</button>
+                    <button type="submit" className="mt-4 w-full rounded-md bg-indigo-900 px-4 py-2 font-semibold text-white transition-colors hover:bg-indigo-950">S'inscrire</button>
                 </form>
 
                 <p id="toggleMessage" className="mt-4 text-center text-gray-300">
                     Vous avez déjà un compte ? 
-                    <a href="/login" className="mb-4 font-bold text-indigo-800 hover:text-indigo-900"> Connectez-vous ici</a>
+                    <a href="/login" className="mb-4 font-bold text-indigo-500 hover:text-indigo-600"> Connectez-vous ici</a>
                 </p>
 
             </div>

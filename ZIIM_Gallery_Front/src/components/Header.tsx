@@ -13,10 +13,10 @@ export default function HeaderComponent() {
         <ul className="flex space-x-8 text-white text-lg font-medium cursor-pointer p-4">
           <li></li>
           <li>
-            <a className="hover:text-gray-300" href="/mainGallery">Main Gallery</a>
+            <a className="hover:text-gray-300" href="/mainGallery">Gallery</a>
           </li>
           <li>
-            <a className="hover:text-gray-300" href="/user/0">profile</a>
+            <a className="hover:text-gray-300" href="/user/0">profil</a>
           </li>
         </ul>
       </div>

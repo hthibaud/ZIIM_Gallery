@@ -6,7 +6,7 @@ export default function FooterComponent() {
         <h1 className="text-white text-4xl font-bold">ZIIM Gallery</h1>
 
         <p className="text-gray-400">
-          Discover and follow art you love!
+          Découvre et suis l'art que tu aimes!
         </p>
 
         <ul className="flex space-x-8 font-medium cursor-pointer p-4">
@@ -17,7 +17,7 @@ export default function FooterComponent() {
           </li>
           <li>
             <a className="hover:text-red-500 text-gray-400" href="/logout">
-              logout
+              se déconnecter
             </a>
           </li>
         </ul>

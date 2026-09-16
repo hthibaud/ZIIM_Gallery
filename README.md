@@ -30,4 +30,6 @@ Second session:
         16/09/26
         Thibaud: 
             - Added a simple searchbar to the header
+            - modified the header / footer like the hover for the buttons/links, increased the size of the name of the app, added a small description in the footer
+            - took back an old authentification html file that i refactored to get a JSX component so I can call it in my App
             
