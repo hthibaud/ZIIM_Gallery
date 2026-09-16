@@ -4,10 +4,9 @@ import Router from './router';
 function App() {
 
   return (
-    <>
-      <Router/>
+    <> 
       <div className="bg-gray-900">
-
+        <Router/>
       </div>
     </>
   )
