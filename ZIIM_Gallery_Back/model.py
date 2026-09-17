@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base
 
@@ -14,5 +14,19 @@ class user(Base):
     email: Mapped[str] = mapped_column(nullable=False)
     date: Mapped[str] = mapped_column(nullable=False)
     gallery_id: Mapped[int] = mapped_column(
-        ForeignKey("gallery.id")
+        ForeignKey("gallery.id"),
+        nullable=True
+    )
+
+    gallery: Mapped["gallery"] = relationship(
+        back_populates="user"
+    )
+
+class gallery(Base):
+    __tablename__="gallery"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    user: Mapped["user"] = relationship(
+        back_populates="gallery"
     )
