@@ -1,29 +1,20 @@
 from fastapi import FastAPI, HTTPException, status
-from pydantic import BaseModel
 
 from database import Database
 from model import user
-
-
-class UserCreate(BaseModel):
-    user_id: str
-    username: str | None = None
-    bio: str | None = None
-    password: str
-    email: str
-    date: str
-    gallery_id: int | None = None
-
+import ZIIM_Gallery_Back.route_model as route_model
 
 def Init(app: FastAPI, db: Database):
     @app.get("/status")
-    async def status():
+    async def get_status():
         return {"status": "Ok"}
 
-    @app.post("/user/new", status_code=201)
-    def Post_user(user_data: UserCreate):
+    @app.post("/user/new", status_code=status.HTTP_201_CREATED)
+    def Post_user(user_data: route_model.UserCreate):
         session = db.get_session()()
         new_user = user(**user_data.model_dump())
+
+
 
         try:
             session.add(new_user)
@@ -34,7 +25,7 @@ def Init(app: FastAPI, db: Database):
             print(error)
             session.rollback()
             raise HTTPException(
-                status_code=400,
+                status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Impossible de créer l'utilisateur",
             ) from error
         finally:
