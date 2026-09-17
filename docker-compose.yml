@@ -16,13 +16,13 @@ services:
   postgres:
     image: postgres:18
     ports:
-      - "5432:5432"
+      - "5430:5432"
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: adminpassword
       POSTGRES_DB: artgallery
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/
 
 volumes:
   minio_data:
