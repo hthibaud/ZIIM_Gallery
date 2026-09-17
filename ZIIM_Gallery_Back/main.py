@@ -1,8 +1,8 @@
 from fastapi import FastAPI
+from route import Init as InitRoute
+from database import Database
 
 app = FastAPI()
+db = Database()
 
-
-@app.get("/status")
-async def status():
-    return {"status": "Ok"}
+InitRoute(app)
