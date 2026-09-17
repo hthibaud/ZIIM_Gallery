@@ -10,3 +10,14 @@ class UserCreate(BaseModel):
     gallery_id: int | None = None
 
 
+class UserResponse(BaseModel):
+    id: int
+    user_id: str
+    username: str | None = None
+    bio: str | None = None
+    date: str
+    gallery_id: int | None = None
+
+    model_config = {"from_attributes": True}
+
+
