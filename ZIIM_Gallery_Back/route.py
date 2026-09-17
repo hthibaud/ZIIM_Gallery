@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, status
 
 from database import Database
 from model import user
-import ZIIM_Gallery_Back.route_model as route_model
+import route_model
 
 def Init(app: FastAPI, db: Database):
     @app.get("/status")
