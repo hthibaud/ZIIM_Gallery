@@ -14,7 +14,7 @@ class Database:
 
         self.engine = create_engine(self.db_url)
 
-        self.session_local = sessionmaker(engine=self.engine, class_=Session, autoflush=False)
+        self.session_local = sessionmaker(bind=self.engine, class_=Session, autoflush=False)
 
     def get_session(self) -> Session:
         return self.session_local
