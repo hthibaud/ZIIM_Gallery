@@ -20,4 +20,8 @@ class UserResponse(BaseModel):
 
     model_config = {"from_attributes": True}
 
+class UserAuth(BaseModel):
+    user_id: str
+    password: str
+
 
