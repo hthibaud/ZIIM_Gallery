@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from route import Init as InitRoute
 from database import Base, Database
-import model
 
 app = FastAPI()
 db = Database()
