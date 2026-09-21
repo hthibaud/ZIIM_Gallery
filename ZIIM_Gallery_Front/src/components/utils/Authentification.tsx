@@ -16,6 +16,8 @@ export default function AuthentificationComponent() {
   const [bio, setBio] = useState("");
   const [avatar, setAvatar] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [banner, setBanner] = useState<File | null>(null);
+  const [bannerPreview, setBannerPreview] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,6 +36,18 @@ export default function AuthentificationComponent() {
     return () => URL.revokeObjectURL(previewUrl);
   }, [avatar]);
 
+  useEffect(() => {
+    if (!banner) {
+      setBannerPreview(null);
+      return;
+    }
+
+    const previewUrl = URL.createObjectURL(banner);
+    setBannerPreview(previewUrl);
+
+    return () => URL.revokeObjectURL(previewUrl);
+  }, [banner]);
+
   function selectAvatar(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0] ?? null;
 
@@ -49,6 +63,23 @@ export default function AuthentificationComponent() {
 
     setError("");
     setAvatar(file);
+  }
+
+  function selectBanner(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] ?? null;
+
+    if (file && !file.type.startsWith("image/")) {
+      setError("Choisis un fichier image pour la bannière.");
+      return;
+    }
+
+    if (file && file.size > 8 * 1024 * 1024) {
+      setError("La bannière doit faire moins de 8 Mo.");
+      return;
+    }
+
+    setError("");
+    setBanner(file);
   }
 
   function nextStep() {
@@ -147,6 +178,23 @@ export default function AuthentificationComponent() {
     }
   }
 
+  async function uploadBanner(token: string) {
+    if (!banner) return;
+
+    const formData = new FormData();
+    formData.append("file", banner);
+
+    const response = await fetch(`${API_URL}/user/banner`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Le compte est créé, mais la bannière n'a pas pu être envoyée.");
+    }
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -159,6 +207,7 @@ export default function AuthentificationComponent() {
       const user = await register();
       const token = await login();
       await uploadAvatar(token);
+      await uploadBanner(token);
       window.location.href = `/user/${user.user_id}`;
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "Une erreur est survenue.");
@@ -225,14 +274,18 @@ export default function AuthentificationComponent() {
             {step === 3 && (
               <div className="space-y-5">
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Ta photo de profil</h2>
-                  <p className="mt-1 text-sm text-slate-400">Ajoute une image carrée, tu pourras la changer plus tard.</p>
+                  <h2 className="text-2xl font-bold text-white">Personnalise ton profil</h2>
+                  <p className="mt-1 text-sm text-slate-400">Ajoute une photo et une bannière, tu pourras les changer plus tard.</p>
                 </div>
-                <label className="mx-auto flex aspect-square w-48 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-cyan-400/60 bg-slate-800 text-center transition hover:border-cyan-300 hover:bg-slate-700">
+                <label className="mx-auto flex aspect-square w-40 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-cyan-400/60 bg-slate-800 text-center transition hover:border-cyan-300 hover:bg-slate-700">
                   {avatarPreview ? <img src={avatarPreview} alt="Aperçu de la photo de profil" className="h-full w-full object-cover" /> : <span className="px-5 text-sm text-slate-300">Choisir une image<br /><span className="text-xs text-slate-500">JPG, PNG, WEBP · 5 Mo max</span></span>}
                   <input type="file" accept="image/*" onChange={selectAvatar} className="sr-only" />
                 </label>
-                <p className="text-center text-xs text-slate-500">Tu peux aussi continuer sans photo.</p>
+                <label className="flex aspect-video cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-orange-400/60 bg-slate-800 text-center transition hover:border-orange-300 hover:bg-slate-700">
+                  {bannerPreview ? <img src={bannerPreview} alt="Aperçu de la bannière" className="h-full w-full object-cover" /> : <span className="text-sm text-slate-300">Choisir une bannière<br /><span className="text-xs text-slate-500">JPG, PNG, WEBP · 8 Mo max</span></span>}
+                  <input type="file" accept="image/*" onChange={selectBanner} className="sr-only" />
+                </label>
+                <p className="text-center text-xs text-slate-500">Les deux images sont facultatives.</p>
               </div>
             )}
 
