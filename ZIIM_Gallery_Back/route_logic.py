@@ -99,8 +99,8 @@ def decode_access_token(token: str) -> dict:
         print(error)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 
-async def update_user_avatar(user_id: int, file: UploadFile, db_session):
-    user = db_session.query(model.user).filter(model.user.id == user_id).first()
+async def update_user_avatar(user_id: str, file: UploadFile, db_session: Session):
+    user = db_session.query(model.user).filter(model.user.user_id == user_id).first()
     if not user:
         return None
         
@@ -111,7 +111,7 @@ async def update_user_avatar(user_id: int, file: UploadFile, db_session):
             pass
 
     ext = file.filename.split('.')[-1]
-    object_key = f"user-{user_id}/avatar-{uuid.UUID}.{ext}"
+    object_key = f"user-{user_id}/avatar-{uuid.uuid4()}.{ext}"
     
     s3_client.upload_fileobj(
         file.file, 
