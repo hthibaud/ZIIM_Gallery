@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi import FastAPI
 from route import Init as InitRoute
 from database import Base, Database
 from fastapi.middleware.cors import CORSMiddleware
