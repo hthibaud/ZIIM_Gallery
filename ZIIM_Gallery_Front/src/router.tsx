@@ -5,6 +5,7 @@ import AuthentificationPage from "./components/utils/Authentification";
 import HeaderComponent from "./components/Header";
 import FooterComponent from "./components/Footer";
 import NotFound from "./components/error/notFound";
+import Buy from "./components/shop/buySection";
 
 export default function Router(){
     return (
@@ -15,6 +16,7 @@ export default function Router(){
                     <Route path="/" element={<Homepage />} />
                     <Route path="/user/:id" element={<User />} />
                     <Route path="/authentification" element={<AuthentificationPage />} />
+                    <Route path="/buy" element={<buySection />} />
                 </Routes>
                 <FooterComponent />
         </BrowserRouter>
