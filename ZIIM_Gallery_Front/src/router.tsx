@@ -6,6 +6,7 @@ import Login from "./components/utils/login";
 import HeaderComponent from "./components/Header";
 import FooterComponent from "./components/Footer";
 import NotFound from "./components/error/notFound";
+import Create from "./components/utils/Create"
 
 export default function Router(){
     return (
@@ -17,6 +18,7 @@ export default function Router(){
                     <Route path="/user/:id" element={<User />} />
                     <Route path="/authentification" element={<AuthentificationPage />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/create" element={<Create />} />
                 </Routes>
                 <FooterComponent />
         </BrowserRouter>
