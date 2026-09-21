@@ -126,3 +126,30 @@ async def update_user_avatar(user_id: str, file: UploadFile, db_session: Session
     db_session.refresh(user)
     
     return object_key
+
+async def update_user_banner(user_id: str, file: UploadFile, db_session: Session):
+    user = db_session.query(model.user).filter(model.user.user_id == user_id).first()
+    if not user:
+        return None
+
+    if user.profile_banner:
+        try:
+            s3_client.delete_object(Bucket="avatars", Key=user.profile_banner)
+        except Exception:
+            pass
+
+    ext = file.filename.split('.')[-1]
+    object_key = f"user-{user_id}/banner-{uuid.uuid4()}.{ext}"
+
+    s3_client.upload_fileobj(
+        file.file,
+        "avatars",
+        object_key,
+        ExtraArgs={"ContentType": file.content_type}
+    )
+
+    user.profile_banner = object_key
+    db_session.commit()
+    db_session.refresh(user)
+
+    return object_key
