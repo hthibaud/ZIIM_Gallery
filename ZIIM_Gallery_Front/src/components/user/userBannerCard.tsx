@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import UserHeaderParam from "./userHeaderParam";
 import UserPicture from "./userPicture";
 
@@ -5,14 +6,45 @@ type UserBannerCardProps = {
     id: string;
 };
 
+type User = {
+    id: number;
+    user_id:string;
+    username: string;
+    bio: string;
+    date: string;
+    gallery_id: string | null;
+};
+
+
 export default function UserBannerCard({ id }: UserBannerCardProps) {
-    const bio = "Bio"
-    const nb_postes = 0
-    const nb_suscriber = 0
-    const nb_suscribe = 0
-    const username = "Username"
-    const gallery_name = "User Gallery"
+    const [user, setUser] = useState<User | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const connectedUserId = "0"
+    
+    const gallery_name: string = ""
+    const posts_count: number = 0
+    const followers_count: number = 0
+    const following_count: number = 0
+
+    console.log(`${import.meta.env.VITE_API_URL}/user/id/${id}`)
+
+    useEffect(() => {
+        if (!id) return;
+
+        fetch(`${import.meta.env.VITE_API_URL}/user/id/${id}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Utilisateur introuvable");
+                }
+                return response.json();
+            })
+            .then(setUser)
+            .catch((requestError: Error) => setError(requestError.message));
+    }, [id]);
+
+    if (error) return <p>{error}</p>;
+    if (!user) return <p>Chargement...</p>;
+
     return (
         <section className="overflow-hidden border-b border-slate-200 bg-white text-left shadow-sm dark:border-slate-700 dark:bg-slate-900">
             <div className="relative h-40 overflow-hidden bg-slate-950 sm:h-52">
@@ -31,7 +63,7 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                             <UserPicture id={id} size={96} />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-slate-950 dark:text-white">{username}</h2>
+                            <h2 className="text-xl font-bold text-slate-950 dark:text-white">{user.username}</h2>
                             <p className="text-sm text-slate-500 dark:text-slate-400">@{id || "inconnu"}</p>
                         </div>
                     </div>
@@ -45,21 +77,21 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                 </div>
 
                 <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
-                    {bio}
+                    {user.bio}
                 </p>
 
                 <dl className="mt-5 flex gap-6 text-sm">
                     <div>
                         <dt className="text-slate-500 dark:text-slate-400">Publications</dt>
-                        <dd className="font-semibold text-slate-950 dark:text-white">{nb_postes}</dd>
+                        <dd className="font-semibold text-slate-950 dark:text-white">{posts_count}</dd>
                     </div>
                     <div>
                         <dt className="text-slate-500 dark:text-slate-400">Abonnés</dt>
-                        <dd className="font-semibold text-slate-950 dark:text-white">{nb_suscriber}</dd>
+                        <dd className="font-semibold text-slate-950 dark:text-white">{followers_count}</dd>
                     </div>
                     <div>
                         <dt className="text-slate-500 dark:text-slate-400">Abonnements</dt>
-                        <dd className="font-semibold text-slate-950 dark:text-white">{nb_suscribe}</dd>
+                        <dd className="font-semibold text-slate-950 dark:text-white">{following_count}</dd>
                     </div>
                 </dl>
             </div>
