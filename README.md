@@ -32,4 +32,14 @@ Second session:
             - Added a simple searchbar to the header
             - modified the header / footer like the hover for the buttons/links, increased the size of the name of the app, added a small description in the footer
             - took back an old authentification html file that i refactored to get a JSX component so I can call it in my App
+            - resolved the "Link" conflict in the header component
+        Leo:
+            - Added all the cards for the artworks with their details in the gallery of the profile page (that I also did)
+            - added buttons on the banner only if I am the user in charge of this account (id verification)
+            - configured the back with the good dependencies
+            - Started the docker compose file
             
+        Romain: 
+            - full Homepage artistic direction
+            - Got the card components from Leo and added a carousel of them on the homepage
+            -  linked the homepage to the gallery / user gallery with a button
