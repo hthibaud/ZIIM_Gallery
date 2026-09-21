@@ -12,14 +12,18 @@ export default function HeaderComponent() {
           <SearchBar 
           />
         <ul className="flex space-x-8 text-white text-lg font-medium cursor-pointer p-4">
-          <li></li>
           <li>
-            <Link to={"/Gallery"} className="hover:text-gray-300">
+            <Link to={"create"} className="flex h-10 w-10 items-center justify-center hover:text-indigo-900 hover:bg-gray-100 rounded-lg bg-gray-700 p-2 text-gray-100 outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900">
+            +
+            </Link> 
+          </li>
+          <li>
+            <Link to={"/gallery"} className="hover:text-gray-300">
             Gallery
             </Link>          
           </li>
           <li>
-            <Link to={"/user/0"} className="hover:text-gray-300">
+            <Link to={`/user/ziim`} className="hover:text-gray-300">
             profil
             </Link>
           </li>
