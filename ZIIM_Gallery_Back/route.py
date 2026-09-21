@@ -1,10 +1,10 @@
-from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi import FastAPI, HTTPException, status, Depends, UploadFile, File
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from database import Database
 import model
 import route_model
-from route_logic import ValidateUserCreation, AuthenticateUser, IsAuthenticate
+from route_logic import ValidateUserCreation, AuthenticateUser, IsAuthenticate, update_user_avatar
 
 security = HTTPBearer()
 
@@ -33,6 +33,31 @@ def Init(app: FastAPI, db: Database):
         finally:
             session.close()
 
+    @app.post("/user/avatar", status_code=status.HTTP_201_CREATED)
+    async def Post_avatar(auth_data: dict = Depends(auth), file: UploadFile = File(...)) -> dict:
+        allowed_mime_types = ["image/jpeg", "image/png", "image/webp"]
+        if file.content_type not in allowed_mime_types:
+            raise HTTPException(
+                status_code=400, 
+                detail="Format de fichier non autorisé. Utilisez JPEG, PNG ou WEBP."
+            )
+        
+        session = db.get_session()()
+        try:
+            avatar_key = await update_user_avatar(auth_data['sub'], file, db)
+            
+            if not avatar_key:
+                raise HTTPException(status_code=404, detail="Utilisateur introuvable.")
+            
+            return {
+                "message": "Avatar mis à jour avec succès", 
+                "avatar_key": avatar_key
+            }
+            
+        except Exception as e:
+            # En production, log l'erreur exacte plutôt que de la renvoyer au client
+            raise HTTPException(status_code=500, detail="Une erreur est survenue lors de l'enregistrement de l'image.")
+
     @app.post("/auth/register", status_code=status.HTTP_201_CREATED, response_model=route_model.UserResponse)
     def Post_user(user_data: route_model.UserCreate):
         session = db.get_session()()
@@ -49,7 +74,7 @@ def Init(app: FastAPI, db: Database):
             print(is_valid)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Impossible de vérifier l'utilisateur",
+                detail="Email invalide ou identifiant/email déjà utilisé",
             )
         except HTTPException:
             session.rollback()
