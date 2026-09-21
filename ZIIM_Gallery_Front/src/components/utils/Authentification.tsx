@@ -54,9 +54,35 @@ export default function AuthentificationComponent() {
   function nextStep() {
     setError("");
 
-    if (step === 1 && (!userId || !email || password.length < 8)) {
-      setError("Renseigne tous les champs et choisis un mot de passe de 8 caractères minimum.");
-      return;
+    if (step === 1 ) {
+      const userIdRegex = /^(?=.{3,20}$)[a-z0-9]+([_-][a-z0-9]+)*$/;
+      const emailRegex = /^[a-zA-Z0-9_%+-]+(?:\.[a-zA-Z0-9_%+-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]).{8,64}$/;
+      if (!userIdRegex.test(userId)) {
+        setError("Le champ ne peut contenir que des lettres minuscules et des chiffres. Les tirets ( - ) et underscores ( _ ) sont autorisés uniquement entre deux caractères, sans être collés ni répétés.")
+        return;
+      } else if (!emailRegex.test(email)) {
+        setError("Veuillez renseigner une adresse e-mail valide (ex. : nom@domaine.fr).")
+        return;
+      } else if (!passwordRegex.test(password)) {
+        setError("Le mot de passe doit comporter au moins 8 caractères et inclure au moins une majuscule, une minuscule, un chiffre et un caractère spécial.")
+        return;
+      } else if (!userId || !email || !password){
+        setError("Renseigne tous les champs.");
+        return;
+      }
+    }
+
+    if (step === 2) {
+      const usernameRegex = /^[^\r\n]{2,12}$/;
+      const bioRegex = /^[\s\S]{2,150}$/;
+      if (!usernameRegex.test(username) && username) {
+        setError("Le nom afficher doit comporter entre 2 et 12 caractères.")
+        return;
+      } else if (!bioRegex.test(bio) && bio) {
+        setError("La bio doit comporter entre 2 et 150 caractères.")
+        return;
+      }
     }
 
     setStep((currentStep) => Math.min(currentStep + 1, 3));
@@ -123,6 +149,9 @@ export default function AuthentificationComponent() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (step !== 3) return;
+
     setError("");
     setIsSubmitting(true);
 
@@ -130,7 +159,7 @@ export default function AuthentificationComponent() {
       const user = await register();
       const token = await login();
       await uploadAvatar(token);
-      window.location.href = `/user/${user.id}`;
+      window.location.href = `/user/${user.user_id}`;
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "Une erreur est survenue.");
     } finally {
@@ -144,7 +173,7 @@ export default function AuthentificationComponent() {
         <div className="border-b border-white/10 bg-linear-to-r from-cyan-500 to-orange-400 px-6 py-8 text-slate-950 sm:px-10">
           <p className="text-sm font-bold uppercase tracking-[0.3em]">ZIIM Gallery</p>
           <h1 className="mt-3 text-3xl font-black sm:text-4xl">Construis ton univers.</h1>
-          <p className="mt-2 max-w-lg text-sm text-slate-900/75">Quelques détails et ta galerie prend vie.</p>
+          <p className="mt-2 max-w-lg text-sm text-slate-900/75">Encore quelques détails et ta galerie prendra vie.</p>
         </div>
 
         <div className="px-6 py-6 sm:px-10">
@@ -188,7 +217,7 @@ export default function AuthentificationComponent() {
                   <input value={username} onChange={(event) => setUsername(event.target.value)} className="mt-2 w-full rounded-xl border border-slate-600 bg-slate-800 px-4 py-3 text-white outline-none focus:border-cyan-400" placeholder={userId || "Ton nom d'artiste"} />
                 </label>
                 <label className="block text-sm font-medium text-slate-200">Bio
-                  <textarea value={bio} onChange={(event) => setBio(event.target.value)} rows={5} maxLength={300} className="mt-2 w-full resize-none rounded-xl border border-slate-600 bg-slate-800 px-4 py-3 text-white outline-none focus:border-cyan-400" placeholder="Quelques mots sur ton univers artistique..." />
+                  <textarea value={bio} onChange={(event) => setBio(event.target.value)} rows={5} maxLength={150} className="mt-2 w-full resize-none rounded-xl border border-slate-600 bg-slate-800 px-4 py-3 text-white outline-none focus:border-cyan-400" placeholder="Quelques mots sur ton univers artistique..." />
                 </label>
               </div>
             )}
@@ -211,7 +240,8 @@ export default function AuthentificationComponent() {
 
             <div className="mt-8 flex justify-between gap-3">
               {step > 1 ? <button type="button" onClick={() => { setError(""); setStep((currentStep) => currentStep - 1); }} className="rounded-xl border border-slate-600 px-5 py-3 font-semibold text-slate-200 transition hover:bg-slate-700">Retour</button> : <span />}
-              {step < 3 ? <button type="button" onClick={nextStep} className="rounded-xl bg-cyan-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-cyan-300">Continuer</button> : <button type="submit" disabled={isSubmitting} className="rounded-xl bg-orange-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-orange-300 disabled:cursor-wait disabled:opacity-60">{isSubmitting ? "Création..." : "Créer ma galerie"}</button>}
+              {step < 3 ? <button type="button" onClick={nextStep} className="rounded-xl bg-cyan-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-cyan-300">Continuer</button> : <span/> }
+              {step === 3 ? <button type="submit" disabled={isSubmitting} className="rounded-xl bg-orange-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-orange-300 disabled:cursor-wait disabled:opacity-60">{isSubmitting ? "Création..." : "Créer ma galerie"}</button> : ""}
             </div>
           </form>
 
