@@ -16,7 +16,7 @@ export default function FooterComponent() {
             </a>
           </li>
           <li>
-            <a className="hover:text-red-500 text-gray-400" href="/logout">
+            <a className="hover:text-red-500 text-gray-400" href="/authentification">
               se déconnecter
             </a>
           </li>

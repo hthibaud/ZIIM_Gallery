@@ -30,7 +30,7 @@ export default function AuthentificationComponent() {
         throw new Error(errorData.detail ?? "Registration failed");
       }
 
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (error) {
       setError(error instanceof Error ? error.message : "Registration failed");
     }
