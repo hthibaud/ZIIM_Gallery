@@ -20,13 +20,12 @@ export async function login(data: LoginData): Promise<string> {
   }
 
   const token: string = await response.json();
-
   localStorage.setItem("access_token", token);
 
   return token;
 }
 
-export async function checkAuthentication() {
+export async function checkAuthentication(): Promise<boolean> {
   const token = localStorage.getItem("access_token");
 
   if (!token) {
