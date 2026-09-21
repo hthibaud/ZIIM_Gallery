@@ -1,33 +1,44 @@
 import { Link } from "react-router-dom";
 
-const notFound = () => {
-  return (
-    <main className="relative flex min-h-[calc(100vh-16rem)] items-center overflow-hidden border-b border-white/10 bg-[#180d2e] px-5 py-24 text-white sm:px-8 sm:py-32 lg:px-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_25%,rgba(121,67,161,0.45),transparent_35%),radial-gradient(circle_at_82%_75%,rgba(212,175,55,0.2),transparent_30%)]" />
-      <div className="relative mx-auto w-full max-w-7xl">
-        <div className="max-w-2xl">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-[#d4af37]">
-            ZIIM Gallery
-          </p>
-          <p className="text-8xl font-semibold leading-none tracking-tight text-white/15 sm:text-[10rem]">
-            404
-          </p>
-          <h2 className="-mt-4 text-4xl font-semibold leading-tight tracking-tight sm:-mt-6 sm:text-6xl">
-            Cette salle n&apos;existe pas.
-          </h2>
-          <p className="mt-6 max-w-xl text-base leading-7 text-white/70 sm:text-lg">
-            L&apos;œuvre ou la page que tu recherches semble avoir disparu de la galerie.
-          </p>
-          <Link
-            to="/"
-            className="mt-8 inline-flex rounded-lg bg-[#d4af37] px-5 py-3 text-sm font-semibold text-[#180d2e] transition hover:bg-[#e5c65f]"
-          >
-            Retour à l&apos;accueil
-          </Link>
-        </div>
-      </div>
-    </main>
-  );
-};
+export default function NotFound() {
+    return (
+        <main className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden bg-zinc-950 px-5 py-24 text-center sm:px-8 lg:px-12">
+            
+            {/* Effet de profondeur neutre et très subtil (remplace les blobs fluos) */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="h-120 w-120 rounded-full bg-zinc-900/40 blur-[100px]" />
+            </div>
 
-export default notFound;
+            <div className="relative z-10 w-full max-w-2xl">
+                {/* Badge 404 (Design "Pill" moderne) */}
+                <span className="inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1 text-sm font-medium text-zinc-400 backdrop-blur-sm">
+                    Erreur 404
+                </span>
+                
+                <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    Cette salle n&apos;existe pas.
+                </h1>
+                
+                <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-zinc-400 sm:text-lg">
+                    L&apos;œuvre ou la page que tu recherches semble avoir disparu, ou bien elle n&apos;a jamais fait partie de la galerie.
+                </p>
+                
+                {/* Actions (Primaire + Secondaire) */}
+                <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <Link
+                        to="/"
+                        className="inline-flex w-full items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-950 sm:w-auto"
+                    >
+                        Retour à l&apos;accueil
+                    </Link>
+                    <Link
+                        to="/Gallery"
+                        className="inline-flex w-full items-center justify-center rounded-lg border border-zinc-800 bg-transparent px-5 py-2.5 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 sm:w-auto"
+                    >
+                        Explorer la galerie
+                    </Link>
+                </div>
+            </div>
+        </main>
+    );
+}

@@ -5,6 +5,7 @@ type ArtworkGalleryCardProps = {
     user_id: string;
     artwork_id: string;
     card_backgound_color?: string; // Rendu optionnel pour la flexibilité
+    artwork?: ArtworkGalleryCardData;
 };
 
 type ArtworkGalleryCardData = {
