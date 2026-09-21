@@ -6,11 +6,6 @@ type UserPictureProps = {
 };
 
 export default function UserPicture({ id, size = 64 }: UserPictureProps) {
-    // API à brancher lorsque l'endpoint backend sera défini :
-    // const imageUrl = `${import.meta.env.VITE_API_URL}/users/${id}/picture`;
-    // const response = await fetch(imageUrl, { method: 'GET' });
-    // const imageBlob = await response.blob();
-    // const imageUrl = URL.createObjectURL(imageBlob);
 
     return (
         <img
