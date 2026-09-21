@@ -1,5 +1,6 @@
 import Coins from '../../assets/icons/coins/coins-32.png'
 import ImgTemplate from '../../assets/ArtworkTemplate.jpg'
+import { Link } from 'react-router-dom';
 
 type ArtworkGalleryCardProps = {
     user_id: string;
@@ -58,12 +59,16 @@ export default function ArtworkGalleryCard({
                         <time dateTime={Data.datetime} className="text-sm font-medium text-slate-200">{formattedDate}</time>
                     </div>
                     {Data.for_sale && (
-                        <div className="flex items-center gap-2">
+                        <Link
+                            to={`/buy/${artwork_id}`}
+                            className="flex items-center gap-2 rounded-lg border border-[#ffe644]/60 px-3 py-2 transition hover:border-[#ffe644] hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#ffe644] focus:ring-offset-2 focus:ring-offset-[#7943A1]"
+                            aria-label={`Voir l'œuvre ${Data.name}`}
+                        >
                             <p className="text-right text-lg font-bold text-[#ffe644]">
                                 {Data.price}
                             </p>
                             <img src={Coins} alt="Image de pieces" className="h-5 w-auto" />
-                        </div> 
+                        </Link>
                     )}
                 </div>
             </div>
