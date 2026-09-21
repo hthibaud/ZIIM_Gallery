@@ -44,7 +44,7 @@ def Init(app: FastAPI, db: Database):
         
         session = db.get_session()()
         try:
-            avatar_key = await update_user_avatar(auth_data['sub'], file, db)
+            avatar_key = await update_user_avatar(auth_data['sub'], file, session)
             
             if not avatar_key:
                 raise HTTPException(status_code=404, detail="Utilisateur introuvable.")
@@ -54,9 +54,14 @@ def Init(app: FastAPI, db: Database):
                 "avatar_key": avatar_key
             }
             
+        except HTTPException:
+            session.rollback()
+            raise
         except Exception as e:
-            # En production, log l'erreur exacte plutôt que de la renvoyer au client
+            session.rollback()
             raise HTTPException(status_code=500, detail="Une erreur est survenue lors de l'enregistrement de l'image.")
+        finally:
+            session.close()
 
     @app.post("/auth/register", status_code=status.HTTP_201_CREATED, response_model=route_model.UserResponse)
     def Post_user(user_data: route_model.UserCreate):
