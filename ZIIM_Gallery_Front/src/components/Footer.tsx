@@ -28,7 +28,7 @@ export default function FooterComponent() {
                           {/* Le bouton de déconnexion utilise la même harmonie, pas de rouge vif inutile */}
                           <a 
                               href="/authentification" 
-                              className="text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-200"
+                              className="text-sm font-medium text-zinc-400 transition-colors hover:text-red-500"
                           >
                               Se déconnecter
                           </a>
