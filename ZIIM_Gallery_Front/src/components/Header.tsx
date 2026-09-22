@@ -25,10 +25,19 @@ export default function HeaderComponent() {
                     {/* On part du principe que ton SearchBar gère sa propre largeur interne 100% */}
                     <SearchBar />
                 </div>
+                
 
                 {/* 3. Navigation */}
                 <nav aria-label="Menu principal" className="shrink-0">
                     <ul className="flex items-center gap-6">
+                        <li>
+                            <Link 
+                                to="/create" 
+                                className="text-xl font-medium text-zinc-400 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-950 rounded-md px-1 py-0.5"
+                            >
+                                +
+                            </Link>
+                        </li>
                         <li>
                             <Link 
                                 to="/Gallery" 
