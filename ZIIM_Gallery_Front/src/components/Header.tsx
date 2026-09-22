@@ -1,7 +1,33 @@
 import SearchBar from "./utils/SearchBar";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function HeaderComponent() {
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    function updateUserId() {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        setUserId(null);
+        return;
+      }
+
+      try {
+        const payload = token.split(".")[1];
+        const decodedPayload = JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/")));
+        setUserId(typeof decodedPayload.sub === "string" ? decodedPayload.sub : null);
+      } catch {
+        setUserId(null);
+      }
+    }
+
+    updateUserId();
+    window.addEventListener("auth-change", updateUserId);
+
+    return () => window.removeEventListener("auth-change", updateUserId);
+  }, []);
+
     return (
         <header className="sticky top-0 z-50 w-full border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md">
             {/* 
@@ -45,15 +71,27 @@ export default function HeaderComponent() {
                             >
                                 Galerie
                             </Link>
+                        
                         </li>
-                        <li>
-                            <Link 
-                                to="/user/0" 
-                                className="text-sm font-medium text-zinc-400 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-950 rounded-md px-1 py-0.5"
+                        {userId ? (
+                          <li>
+                            <Link
+                              to={`/user/${userId}`}
+                              className="text-sm font-medium text-zinc-400 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-950 rounded-md px-1 py-0.5"
                             >
-                                Profil
+                              Profil
                             </Link>
-                        </li>
+                          </li>
+                        ) : (
+                          <li>
+                            <Link
+                              to="/login"
+                              className="text-sm font-medium text-zinc-400 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-950 rounded-md px-1 py-0.5"
+                            >
+                              Se connecter
+                            </Link>
+                          </li>
+                        )}
                     </ul>
                 </nav>
                 

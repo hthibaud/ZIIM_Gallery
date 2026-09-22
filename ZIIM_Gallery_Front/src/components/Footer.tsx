@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { logout } from "../api/auth";
+
 export default function FooterComponent() {
   return (
       <footer className="border-t border-zinc-800/60 bg-zinc-950 px-5 py-12 sm:px-8 lg:px-12">
@@ -26,12 +29,13 @@ export default function FooterComponent() {
                       </li>
                       <li>
                           {/* Le bouton de déconnexion utilise la même harmonie, pas de rouge vif inutile */}
-                          <a 
-                              href="/authentification" 
+                          <Link
+                              to="/authentification"
+                              onClick={logout}
                               className="text-sm font-medium text-zinc-400 transition-colors hover:text-red-500"
                           >
                               Se déconnecter
-                          </a>
+                          </Link>
                       </li>
                   </ul>
               </nav>

@@ -19,7 +19,6 @@ type ArtworkGalleryCardData = {
 };
 
 export default function ArtworkGalleryCard({
-    user_id,
     artwork_id,
     card_backgound_color,
     artwork

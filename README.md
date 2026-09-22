@@ -69,5 +69,12 @@ Fourth session:
             - re-added the + button to create (bad merge conflict removed it)
             - modified the colors of the create page and login pages for them to correspond to the theme of the app
             - linked the create page to the create button in user banner
-            
+            - tried to make the searchbar work
+        Romain:
+            - Code learning and analyzing
+        Léo:
+            - hook user
+            - corection et optimisation du code user
+            - Mise en accord graphique
+            - corrections et ajustements
 

@@ -43,4 +43,5 @@ export async function checkAuthentication(): Promise<boolean> {
 
 export function logout() {
   localStorage.removeItem("access_token");
+  window.dispatchEvent(new Event("auth-change"));
 }
