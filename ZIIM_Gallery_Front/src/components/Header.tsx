@@ -40,7 +40,7 @@ export default function HeaderComponent() {
                         </li>
                         <li>
                             <Link 
-                                to="/Gallery" 
+                                to="/" 
                                 className="text-sm font-medium text-zinc-400 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-950 rounded-md px-1 py-0.5"
                             >
                                 Galerie
