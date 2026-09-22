@@ -13,9 +13,9 @@ export default function Create() {
 
   return (
     <>
-      <main className="container mx-auto">
+      <main className="container mx-auto bg-black">
         <section className="flex min-h-screen items-center justify-center">
-          <div className="w-full max-w-md rounded-lg bg-gray-800 p-8 shadow-lg">
+          <div className="w-full max-w-md rounded-lg bg-black p-8 shadow-lg inline:none ring-2 ring-gray-500">
             <h1 className="text-4xl p-4 font-bold text-white">
               Publier une oeuvre
             </h1>
@@ -29,7 +29,7 @@ export default function Create() {
                   placeholder="Titre de votre oeuvre"
                   required
                   onChange={(event) => setTitle(event.target.value)}
-                  className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900"
+                  className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-200"
                 />
               </div>
 
@@ -41,7 +41,7 @@ export default function Create() {
                   name="oeuvre"
                   placeholder="importer votre oeuvre)"
                   required
-                  className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900"
+                  className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-200"
                 />
               </div>
 
@@ -68,14 +68,14 @@ export default function Create() {
                     placeholder="Prix de votre oeuvre (€)"
                     min="0"
                     required
-                    className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900"
+                    className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-200"
                   />
                 </div>
               )}
 
               <button
                 type="submit"
-                className="mt-4 w-full rounded-md bg-indigo-900 px-4 py-2 font-semibold text-white transition-colors hover:bg-indigo-950"
+                className="mt-4 w-full rounded-md bg-gray-200 px-4 py-2 font-semibold text-black transition-colors hover:bg-yellow-300"
               >
                 Publier cette oeuvre
               </button>
