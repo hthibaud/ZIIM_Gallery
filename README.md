@@ -43,3 +43,30 @@ Second session:
             - full Homepage artistic direction
             - Got the card components from Leo and added a carousel of them on the homepage
             -  linked the homepage to the gallery / user gallery with a button
+Third session:
+        21/09/26
+        Thibaud:
+            - fixed the register page and the routes to it
+            - added a middleware to specify the port of the front app to the back
+            - added an helper in TS to help the back make the authentification (with functions like login, checkAuthentification that returns a bool, and logout that redirects to regsiter page)
+            - added a working login page with token generation and verification
+            - added a page with a form to post an art on the app and make it available for sale (with price).
+            - added the corresponding routes of what I did today
+
+        Leo:
+            - configuration mini for the pics
+            - upgrade register
+            - add avatar
+
+        Romain:
+            - finish homepage
+            - add error 404 page
+            - add button for buy the card
+            - add transaction page (is not functional)
+Fourth session:
+        22/09/26
+        Thibaud:
+            - re-added the + button to create (bad merge conflict removed it)
+            - modified the colors of the create page for it to correspond to the theme of the app
+            
+
