@@ -13,6 +13,8 @@ class user(Base):
     password: Mapped[str] = mapped_column(nullable=False)
     email: Mapped[str] = mapped_column(nullable=False)
     date: Mapped[str] = mapped_column(nullable=False)
+    profile_picture = mapped_column(String, nullable=True)
+    profile_banner = mapped_column(String, nullable=True)
     gallery_id: Mapped[int] = mapped_column(
         ForeignKey("gallery.id"),
         nullable=True

@@ -1,3 +1,22 @@
+@import "tailwindcss";
+
 :root {
     background-color: black;
+}
+
+@theme {
+  /* 1. On crée la classe utilitaire 'animate-fade-in-up' */
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+
+  /* 2. On définit le mouvement (les keyframes) */
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

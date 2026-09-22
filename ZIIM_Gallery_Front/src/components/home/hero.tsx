@@ -1,24 +1,51 @@
 export default function Hero() {
     return (
-        <section className="relative overflow-hidden border-b border-white/10 bg-[#180d2e] px-5 py-24 text-white sm:px-8 sm:py-32 lg:px-12">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(121,67,161,0.45),transparent_35%),radial-gradient(circle_at_85%_70%,rgba(212,175,55,0.18),transparent_30%)]" />
+        <section className="relative overflow-hidden border-b border-zinc-800/60 px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
+            
+            {/* 
+              On ne met plus de fond ni de gradient ici !
+              La transparence laisse passer le "Glow" défini dans la Homepage, 
+              ce qui unifie toute la page.
+            */}
+            
             <div className="relative mx-auto max-w-7xl">
                 <div className="max-w-3xl">
-                    <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-[#d4af37]">ZIIM Gallery</p>
-                    <h1 className="max-w-2xl text-5xl font-semibold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
+                    
+                    {/* 
+                      Le "Eyebrow" (sur-titre) :
+                      Remplacement du texte doré espacé par un "Badge Pilule" moderne.
+                      C'est la norme actuelle (Vercel, OpenAI, Linear) pour introduire un produit.
+                    */}
+                    <div className="mb-6 inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1 text-sm font-medium text-zinc-400 backdrop-blur-sm">
+                        <span className="mr-2 flex h-1.5 w-1.5 rounded-full bg-white opacity-80"></span>
+                        ZIIM Gallery
+                    </div>
+                    
+                    <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
                         L&apos;art mérite un espace à sa hauteur.
                     </h1>
-                    <p className="mt-6 max-w-xl text-base leading-7 text-white/70 sm:text-lg">
+                    
+                    <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
                         Explorez des œuvres, découvrez des artistes et construisez une galerie qui vous ressemble.
                     </p>
-                    <div className="mt-8 flex flex-wrap gap-3">
-                        <a href="/user/0" className="rounded-lg bg-[#d4af37] px-5 py-3 text-sm font-semibold text-[#180d2e] transition hover:bg-[#e5c65f]">
+                    
+                    {/* Les boutons : fort contraste (Blanc) et fantôme (Zinc) */}
+                    <div className="mt-10 flex flex-wrap items-center gap-4">
+                        <a 
+                            href="/user/0" 
+                            className="inline-flex h-11 items-center justify-center rounded-lg bg-white px-6 font-medium text-zinc-950 transition-colors hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-950"
+                        >
                             Voir ma galerie
                         </a>
-                        <a href="#recent-artworks" className="rounded-lg border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10">
+                        
+                        <a 
+                            href="#recent-artworks" 
+                            className="inline-flex h-11 items-center justify-center rounded-lg border border-zinc-800 bg-transparent px-6 font-medium text-zinc-300 transition-colors hover:bg-zinc-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-950"
+                        >
                             Explorer les œuvres
                         </a>
                     </div>
+                    
                 </div>
             </div>
         </section>

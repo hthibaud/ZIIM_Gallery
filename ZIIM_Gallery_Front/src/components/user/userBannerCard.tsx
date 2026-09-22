@@ -8,25 +8,40 @@ type UserBannerCardProps = {
 
 type User = {
     id: number;
-    user_id:string;
-    username: string;
-    bio: string;
+    user_id: string;
+    username: string | null;
+    bio: string | null;
+    profile_picture: string | null;
+    profile_banner: string | null;
     date: string;
     gallery_id: string | null;
 };
 
+function getConnectedUserId() {
+    const token = localStorage.getItem("access_token");
+    if (!token) return null;
+
+    try {
+        const payload = token.split(".")[1];
+        return JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/"))).sub as string;
+    } catch {
+        return null;
+    }
+}
 
 export default function UserBannerCard({ id }: UserBannerCardProps) {
     const [user, setUser] = useState<User | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const connectedUserId = "0"
+    const connectedUserId = getConnectedUserId();
     
-    const gallery_name: string = ""
-    const posts_count: number = 0
-    const followers_count: number = 0
-    const following_count: number = 0
-
-    console.log(`${import.meta.env.VITE_API_URL}/user/id/${id}`)
+    // Constantes à relier à ton backend plus tard
+    const gallery_name: string = "";
+    const posts_count: number = 0;
+    const followers_count: number = 0;
+    const following_count: number = 0;
+    
+    const minioUrl = import.meta.env.VITE_MINIO_URL ?? "http://localhost:9000";
+    const bannerUrl = user?.profile_banner ? `${minioUrl}/avatars/${user.profile_banner}` : null;
 
     useEffect(() => {
         if (!id) return;
@@ -42,56 +57,106 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
             .catch((requestError: Error) => setError(requestError.message));
     }, [id]);
 
-    if (error) return <p>{error}</p>;
-    if (!user) return <p>Chargement...</p>;
+    // État d'erreur épuré
+    if (error) {
+        return (
+            <div className="flex h-48 items-center justify-center border-b border-zinc-200 bg-zinc-50 text-sm text-zinc-500 dark:border-zinc-800 dark:bg-zinc-950">
+                <p>{error}</p>
+            </div>
+        );
+    }
+
+    // État de chargement professionnel (spinner)
+    if (!user) {
+        return (
+            <div className="flex h-64 items-center justify-center border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-900 dark:border-zinc-700 dark:border-t-white" />
+            </div>
+        );
+    }
 
     return (
-        <section className="overflow-hidden border-b border-slate-200 bg-white text-left shadow-sm dark:border-slate-700 dark:bg-slate-900">
-            <div className="relative h-40 overflow-hidden bg-slate-950 sm:h-52">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#0ea5e9_0,transparent_35%),radial-gradient(circle_at_80%_80%,#f97316_0,transparent_40%)] opacity-90" />
-                <div className="absolute inset-0 bg-slate-950/30" />
-                {connectedUserId === id && <UserHeaderParam />}
-                <span className="absolute bottom-4 right-5 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
-                    {gallery_name}
-                </span>
+        <section className="overflow-hidden border-b border-zinc-200 bg-white text-left dark:border-zinc-800 dark:bg-zinc-950">
+            {/* Zone de la bannière */}
+            <div className="relative h-40 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900 sm:h-52">
+                {bannerUrl ? (
+                    <img 
+                        src={bannerUrl} 
+                        alt="Bannière du profil" 
+                        className="absolute inset-0 h-full w-full object-cover" 
+                    />
+                ) : (
+                    /* Fallback propre si pas de bannière (dégradé gris très subtil) */
+                    <div className="absolute inset-0 bg-linear-to-tr from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900" />
+                )}
+                
+                {/* Léger voile pour assurer le contraste si tu as des boutons par-dessus */}
+                <div className="absolute inset-0 bg-black/10" />
+
+                {connectedUserId === id && (
+                    <UserHeaderParam 
+                        user={user} 
+                        onUserUpdated={(updatedUser) => setUser((currentUser) => currentUser ? { ...currentUser, ...updatedUser } : currentUser)} 
+                    />
+                )}
+
+                {gallery_name && (
+                    <span className="absolute bottom-4 right-5 rounded-md bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-md">
+                        {gallery_name}
+                    </span>
+                )}
             </div>
 
-            <div className="relative px-5 pb-5 sm:px-8 sm:pb-6">
-                <div className="-mt-12 flex flex-col gap-4 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
-                    <div className="flex items-end gap-4 mt-2">
-                        <div className="rounded-full bg-white p-1 shadow-lg dark:bg-slate-900">
-                            <UserPicture id={id} size={96} />
+            {/* Zone des informations utilisateur */}
+            <div className="relative px-5 pb-8 sm:px-8">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    
+                    {/* Avatar et Nom */}
+                    <div className="flex items-end gap-5">
+                        <div className="-mt-12 inline-block rounded-full border-4 border-white bg-white dark:border-zinc-950 dark:bg-zinc-950 sm:-mt-16">
+                            <UserPicture profilePicture={user.profile_picture} size={112} />
                         </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-slate-950 dark:text-white">{user.username}</h2>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">@{id || "inconnu"}</p>
+                        <div className="mb-1">
+                            <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                                {user.username || id}
+                            </h2>
+                            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                                @{id || "inconnu"}
+                            </p>
                         </div>
                     </div>
 
-                    <button
-                        type="button"
-                        className="w-full rounded-lg bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:w-auto"
-                    >
-                        Suivre
-                    </button>
+                    {/* Bouton d'action principal */}
+                    {connectedUserId !== id && (
+                        <button
+                            type="button"
+                            className="inline-flex w-full items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 dark:focus:ring-white dark:focus:ring-offset-zinc-950 sm:mb-1 sm:w-auto"
+                        >
+                            Suivre
+                        </button>
+                    )}
                 </div>
 
-                <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
-                    {user.bio}
-                </p>
+                {/* Biographie */}
+                {user.bio && (
+                    <p className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                        {user.bio}
+                    </p>
+                )}
 
-                <dl className="mt-5 flex gap-6 text-sm">
-                    <div>
-                        <dt className="text-slate-500 dark:text-slate-400">Publications</dt>
-                        <dd className="font-semibold text-slate-950 dark:text-white">{posts_count}</dd>
+                {/* Statistiques (Design compact en ligne) */}
+                <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+                    <div className="flex items-center gap-1.5">
+                        <dd className="font-semibold text-zinc-900 dark:text-white">{posts_count}</dd>
+                        <dt className="text-zinc-500 dark:text-zinc-400">Publications</dt>
                     </div>
-                    <div>
-                        <dt className="text-slate-500 dark:text-slate-400">Abonnés</dt>
-                        <dd className="font-semibold text-slate-950 dark:text-white">{followers_count}</dd>
+                    <div className="flex items-center gap-1.5">
+                        <dd className="font-semibold text-zinc-900 dark:text-white">{followers_count}</dd>
+                        <dt className="text-zinc-500 dark:text-zinc-400">Abonnés</dt>
                     </div>
-                    <div>
-                        <dt className="text-slate-500 dark:text-slate-400">Abonnements</dt>
-                        <dd className="font-semibold text-slate-950 dark:text-white">{following_count}</dd>
+                    <div className="flex items-center gap-1.5">
+                        <dd className="font-semibold text-zinc-900 dark:text-white">{following_count}</dd>
+                        <dt className="text-zinc-500 dark:text-zinc-400">Abonnements</dt>
                     </div>
                 </dl>
             </div>

@@ -1,12 +1,14 @@
 from email_validator import validate_email, EmailNotValidError
 from pwdlib import PasswordHash
 from pwdlib.hashers.argon2 import Argon2Hasher
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, UploadFile
 from sqlalchemy.orm import Session
 import jwt
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta, timezone
+import boto3
+import uuid
 
 import route_model
 import model
@@ -17,6 +19,13 @@ SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 ALGORITHM = os.getenv("JWT_ALGORITHM")
 print(ALGORITHM)
 password_hash = PasswordHash((Argon2Hasher(),))
+
+s3_client = boto3.client(
+    's3',
+    endpoint_url=f'http://{os.getenv("MINIO_URL")}', 
+    aws_access_key_id= os.getenv("MINIO_ACCESS_KEY"),
+    aws_secret_access_key= os.getenv("MINIO_SECRET_KEY")
+)
 
 def ValidateUserCreation(
     data: route_model.UserCreate, session: Session
@@ -89,3 +98,58 @@ def decode_access_token(token: str) -> dict:
     except jwt.InvalidTokenError as error:
         print(error)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+async def update_user_avatar(user_id: str, file: UploadFile, db_session: Session):
+    user = db_session.query(model.user).filter(model.user.user_id == user_id).first()
+    if not user:
+        return None
+        
+    if user.profile_picture:
+        try:
+            s3_client.delete_object(Bucket="avatars", Key=user.profile_picture)
+        except Exception:
+            pass
+
+    ext = file.filename.split('.')[-1]
+    object_key = f"user-{user_id}/avatar-{uuid.uuid4()}.{ext}"
+    
+    s3_client.upload_fileobj(
+        file.file, 
+        "avatars", 
+        object_key,
+        ExtraArgs={"ContentType": file.content_type}
+    )
+    
+    # 5. Mise à jour de la base de données PostgreSQL
+    user.profile_picture = object_key
+    db_session.commit()
+    db_session.refresh(user)
+    
+    return object_key
+
+async def update_user_banner(user_id: str, file: UploadFile, db_session: Session):
+    user = db_session.query(model.user).filter(model.user.user_id == user_id).first()
+    if not user:
+        return None
+
+    if user.profile_banner:
+        try:
+            s3_client.delete_object(Bucket="avatars", Key=user.profile_banner)
+        except Exception:
+            pass
+
+    ext = file.filename.split('.')[-1]
+    object_key = f"user-{user_id}/banner-{uuid.uuid4()}.{ext}"
+
+    s3_client.upload_fileobj(
+        file.file,
+        "avatars",
+        object_key,
+        ExtraArgs={"ContentType": file.content_type}
+    )
+
+    user.profile_banner = object_key
+    db_session.commit()
+    db_session.refresh(user)
+
+    return object_key

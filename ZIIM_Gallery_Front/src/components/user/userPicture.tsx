@@ -1,20 +1,20 @@
 import defaultUserPicture from '../../assets/default_userPicture.jpg';
 
 type UserPictureProps = {
-    id: string;
+    profilePicture?: string | null;
     size?: number;
 };
 
-export default function UserPicture({ id, size = 64 }: UserPictureProps) {
-    // API à brancher lorsque l'endpoint backend sera défini :
-    // const imageUrl = `${import.meta.env.VITE_API_URL}/users/${id}/picture`;
-    // const response = await fetch(imageUrl, { method: 'GET' });
-    // const imageBlob = await response.blob();
-    // const imageUrl = URL.createObjectURL(imageBlob);
+const MINIO_URL = import.meta.env.VITE_MINIO_URL ?? "http://localhost:9000";
 
+export default function UserPicture({ profilePicture, size = 64 }: UserPictureProps) {
+    const pictureUrl = profilePicture
+        ? `${MINIO_URL}/avatars/${profilePicture}`
+        : defaultUserPicture;
+    
     return (
         <img
-            src={defaultUserPicture}
+            src={pictureUrl}
             alt="Photo de profile"
             width={size}
             height={size}
