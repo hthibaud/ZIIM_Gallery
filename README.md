@@ -63,3 +63,10 @@ Third session:
             - add error 404 page
             - add button for buy the card
             - add transaction page (is not functional)
+Fourth session:
+        22/09/26
+        Thibaud:
+            - re-added the + button to create (bad merge conflict removed it)
+            - modified the colors of the create page for it to correspond to the theme of the app
+            
+

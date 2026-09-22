@@ -7,6 +7,7 @@ import HeaderComponent from "./components/Header";
 import FooterComponent from "./components/Footer";
 import NotFound from "./components/error/notFound";
 import BuySection from "./components/shop/buySection";
+import Create from "./components/utils/Create"
 
 export default function Router(){
     return (
@@ -19,6 +20,7 @@ export default function Router(){
                     <Route path="/login" element={<Login />} />
                     <Route path="/buy/:id" element={<BuySection />} />
                     <Route path ="*" element = {<NotFound />} />
+                    <Route path="/create" element={<Create />} />
                 </Routes>
                 <FooterComponent />
         </BrowserRouter>
