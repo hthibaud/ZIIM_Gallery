@@ -196,7 +196,7 @@ export default function AuthentificationComponent() {
     }
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-black px-4 py-12 sm:px-6 lg:px-8">
+        <main className="bg-[url('./assets/bg-gallery.png')] bg-cover bg-center bg-no-repeat flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
             <section className="w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 shadow-2xl">
                 
                 {/* Barre de progression minimaliste */}

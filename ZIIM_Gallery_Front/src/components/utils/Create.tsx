@@ -13,7 +13,7 @@ export default function Create() {
 
   return (
     <>
-      <main className="container mx-auto bg-black">
+      <main className="container mx-auto bg-[url('./assets/bg-gallery.png')] min-w-screen bg-cover bg-center bg-no-repeat">
         <section className="flex min-h-screen items-center justify-center">
           <div className="w-full max-w-md rounded-lg bg-black p-8 shadow-lg inline:none ring-2 ring-gray-500">
             <h1 className="text-4xl p-4 font-bold text-white">
