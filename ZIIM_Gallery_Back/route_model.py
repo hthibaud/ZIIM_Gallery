@@ -11,7 +11,6 @@ class UserCreate(BaseModel):
 
 
 class UserResponse(BaseModel):
-    id: int
     user_id: str
     username: str | None = None
     bio: str | None = None
