@@ -1,6 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import UserParam from "./userParam";
 import Paint from "../../assets/icons/paint/paint-32.png";
+import { Link } from "react-router-dom";
 
 type UserSettings = {
     username: string | null;
@@ -134,12 +135,13 @@ export default function UserHeaderParam({ user, onUserUpdated }: UserHeaderParam
                 aria-label="Actions de la galerie" 
                 className="absolute right-4 top-4 z-10 flex items-center gap-1.5 rounded-full border border-zinc-700/60 bg-zinc-950/50 p-1.5 shadow-lg backdrop-blur-md sm:right-6 sm:top-6"
             >
-                <button
+                <Link
+                    to="/create"
                     type="button"
                     className="inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
                 >
                     Ajouter une œuvre
-                </button>
+                </Link>
                 
                 <button
                     type="button"
