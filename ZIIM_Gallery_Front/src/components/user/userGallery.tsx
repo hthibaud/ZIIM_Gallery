@@ -1,10 +1,10 @@
 import ArtworkGalleryCard from "../item/artworkGalleryCard";
+import { useUser } from '../../hooks/useUser';
 
 type UserGalleryProps = {
     userId: string;
     title?: string;
     description?: string;
-    // J'ajoute ces props au cas où les couleurs viennent de ton backend
     customBgColor?: string; 
     customCardColor?: string;
 }
@@ -16,10 +16,18 @@ export default function UserGallery({
     customBgColor,
     customCardColor,
 }: UserGalleryProps) {
+    const { user, isLoading, error } = useUser(userId);
     
-    // Données de test (à remplacer par tes vraies données/props plus tard)
-    const userName = "Username";
+    const userName = user?.username || "Artiste inconnu";
     const dummyArtworks = Array.from({ length: 11 }, (_, i) => String(i));
+
+    if (isLoading) {
+        return <div className="p-12 text-center text-zinc-400">Chargement de la galerie...</div>;
+    }
+
+    if (error) {
+        return <div className="p-12 text-center text-red-500">Erreur : {error}</div>;
+    }
 
     return (
         <section
@@ -27,7 +35,6 @@ export default function UserGallery({
             style={customBgColor ? { backgroundColor: customBgColor } : undefined}
         >
             <div className="mx-auto max-w-7xl">
-                {/* En-tête éditorial (aligné à gauche, clair et structuré) */}
                 <header className="mb-12 border-b border-zinc-800/60 pb-8 sm:mb-16">
                     <p className="mb-2 text-sm font-medium text-zinc-500">
                         Galerie de {userName}
@@ -42,7 +49,6 @@ export default function UserGallery({
                     )}
                 </header>
 
-                {/* Grille des œuvres */}
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 xl:gap-y-12">
                     {dummyArtworks.map((id) => (
                         <ArtworkGalleryCard 
