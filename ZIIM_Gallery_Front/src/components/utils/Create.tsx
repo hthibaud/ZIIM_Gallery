@@ -52,7 +52,7 @@ export default function Create() {
                     checked={isForSale}
                     onChange={(event) => setIsForSale(event.target.checked)}
                     name="is_for_sale"
-                    className="h-4 w-4 accent-indigo-900"
+                    className="h-4 w-4 accent-yellow-300"
                   />
                   Vendre cette oeuvre ? 
                 </label>
