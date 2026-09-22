@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UserHeaderParam from "./userHeaderParam";
 import UserPicture from "./userPicture";
+import { useUser } from "../../hooks/useUser";
 
 type UserBannerCardProps = {
     id: string;
-};
-
-type User = {
-    id: number;
-    user_id: string;
-    username: string | null;
-    bio: string | null;
-    profile_picture: string | null;
-    profile_banner: string | null;
-    date: string;
-    gallery_id: string | null;
 };
 
 function getConnectedUserId() {
@@ -30,8 +20,9 @@ function getConnectedUserId() {
 }
 
 export default function UserBannerCard({ id }: UserBannerCardProps) {
-    const [user, setUser] = useState<User | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    const { user: fetchedUser, isLoading, error } = useUser(id);
+    const [updatedUser, setUpdatedUser] = useState<typeof fetchedUser>(null);
+    const user = updatedUser ?? fetchedUser;
     const connectedUserId = getConnectedUserId();
     
     // Constantes à relier à ton backend plus tard
@@ -43,20 +34,6 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
     const minioUrl = import.meta.env.VITE_MINIO_URL ?? "http://localhost:9000";
     const bannerUrl = user?.profile_banner ? `${minioUrl}/avatars/${user.profile_banner}` : null;
 
-    useEffect(() => {
-        if (!id) return;
-
-        fetch(`${import.meta.env.VITE_API_URL}/user/id/${id}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Utilisateur introuvable");
-                }
-                return response.json();
-            })
-            .then(setUser)
-            .catch((requestError: Error) => setError(requestError.message));
-    }, [id]);
-
     // État d'erreur épuré
     if (error) {
         return (
@@ -67,7 +44,7 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
     }
 
     // État de chargement professionnel (spinner)
-    if (!user) {
+    if (isLoading || !user) {
         return (
             <div className="flex h-64 items-center justify-center border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-900 dark:border-zinc-700 dark:border-t-white" />
@@ -96,7 +73,7 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                 {connectedUserId === id && (
                     <UserHeaderParam 
                         user={user} 
-                        onUserUpdated={(updatedUser) => setUser((currentUser) => currentUser ? { ...currentUser, ...updatedUser } : currentUser)} 
+                        onUserUpdated={(profileUpdate) => setUpdatedUser((currentUser) => ({ ...user, ...currentUser, ...profileUpdate }))} 
                     />
                 )}
 
