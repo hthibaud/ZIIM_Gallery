@@ -4,7 +4,6 @@ type UserGalleryProps = {
     userId: string;
     title?: string;
     description?: string;
-    // J'ajoute ces props au cas où les couleurs viennent de ton backend
     customBgColor?: string; 
     customCardColor?: string;
 }

@@ -21,11 +21,12 @@ type ArtworkGalleryCardData = {
 export default function ArtworkGalleryCard({
     user_id,
     artwork_id,
-    card_backgound_color
+    card_backgound_color,
+    artwork
 }: ArtworkGalleryCardProps) {
     
     // Données fictives
-    const Data: ArtworkGalleryCardData = {
+    const Data: ArtworkGalleryCardData = artwork ?? {
         name: "Test",
         details: "Voici une œuvre de test avec une description qui peut s'étaler sur plusieurs lignes pour voir le rendu.",
         price: 200,
@@ -39,6 +40,7 @@ export default function ArtworkGalleryCard({
         month: "short",
         year: "numeric",
     }).format(new Date(Data.datetime));
+
 
     return (
         <article 

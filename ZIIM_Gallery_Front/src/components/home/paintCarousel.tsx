@@ -109,6 +109,7 @@ export default function PaintCarousel() {
                             <ArtworkGalleryCard
                                 user_id={artwork.userId}
                                 artwork_id={artwork.id}
+                                artwork={artwork}
                             />
                         </div>
                     ))}

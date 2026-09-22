@@ -67,6 +67,7 @@ Fourth session:
         22/09/26
         Thibaud:
             - re-added the + button to create (bad merge conflict removed it)
-            - modified the colors of the create page for it to correspond to the theme of the app
+            - modified the colors of the create page and login pages for them to correspond to the theme of the app
+            - linked the create page to the create button in user banner
             
 
