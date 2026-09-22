@@ -1,7 +1,35 @@
 import { Link } from "react-router-dom";
 import { logout } from "../api/auth";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function FooterComponent() {
+
+      const [userId, setUserId] = useState<string | null>(null);
+    
+      useEffect(() => {
+        function updateUserId() {
+          const token = localStorage.getItem("access_token");
+          if (!token) {
+            setUserId(null);
+            return;
+          }
+    
+          try {
+            const payload = token.split(".")[1];
+            const decodedPayload = JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/")));
+            setUserId(typeof decodedPayload.sub === "string" ? decodedPayload.sub : null);
+          } catch {
+            setUserId(null);
+          }
+        }
+    
+        updateUserId();
+        window.addEventListener("auth-change", updateUserId);
+    
+        return () => window.removeEventListener("auth-change", updateUserId);
+      }, []);
+
   return (
       <footer className="border-t border-zinc-800/60 bg-zinc-950 px-5 py-12 sm:px-8 lg:px-12">
           <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
@@ -27,8 +55,9 @@ export default function FooterComponent() {
                               Support
                           </a>
                       </li>
+                    {userId ? (
                       <li>
-                          {/* Le bouton de déconnexion utilise la même harmonie, pas de rouge vif inutile */}
+                        
                           <Link
                               to="/authentification"
                               onClick={logout}
@@ -37,6 +66,16 @@ export default function FooterComponent() {
                               Se déconnecter
                           </Link>
                       </li>
+                    ):(
+                        <li>
+                        <Link
+                              to="/login"
+                              className="text-sm font-medium text-zinc-400 transition-colors hover:text-green-500"
+                          >
+                              Se connecter
+                          </Link>
+                      </li>
+                     )}
                   </ul>
               </nav>
               

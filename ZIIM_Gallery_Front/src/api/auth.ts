@@ -21,6 +21,7 @@ export async function login(data: LoginData): Promise<string> {
 
   const token: string = await response.json();
   localStorage.setItem("access_token", token);
+  window.dispatchEvent(new Event("auth-change"));
 
   return token;
 }

@@ -44,7 +44,7 @@ export default function Login() {
                                 placeholder="Identifiant"
                                 required
                                 onChange={(event) => setUserId(event.target.value)}
-                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900"
+                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-200"
                             />
                         </div>
 
@@ -57,7 +57,7 @@ export default function Login() {
                                 name="password"
                                 placeholder="Mot de passe"
                                 required
-                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900"
+                                className="w-full rounded-md border border-gray-300 px-4 py-2 text-white shadow-sm outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-200"
                             />
                         </div>
 
@@ -67,6 +67,12 @@ export default function Login() {
                         >
                             Se connecter
                         </button>
+                                            <p className="mt-8 text-center text-sm text-zinc-500">
+                        Vous n'avez pas de compte ?{' '}
+                        <a href="/authentification" className="font-medium text-white transition-colors hover:text-zinc-300">
+                            Créez un compte
+                        </a>
+                    </p>
 
                         {error && <p className="text-red-500">{error}</p>}
                     </form>
