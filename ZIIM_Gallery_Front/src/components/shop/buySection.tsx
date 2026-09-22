@@ -6,117 +6,180 @@ import Coins from "../../assets/icons/coins/coins-32.png";
 const artworkPrice = 200;
 
 type ChatMessage = {
-	id: number;
-	author: "Vous" | "Artiste";
-	text: string;
+    id: number;
+    author: "Vous" | "Artiste";
+    text: string;
 };
 
 export default function BuySection() {
-	const { id = "0" } = useParams<{ id: string }>();
-	const [isPurchased, setIsPurchased] = useState(false);
-	const [message, setMessage] = useState("");
-	const [messages, setMessages] = useState<ChatMessage[]>([
-		{ id: 1, author: "Artiste", text: "Bonjour, merci de votre intérêt pour cette œuvre." },
-	]);
+    const { id = "0" } = useParams<{ id: string }>();
+    const [isPurchased, setIsPurchased] = useState(false);
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState<ChatMessage[]>([
+        { id: 1, author: "Artiste", text: "Bonjour, merci de votre intérêt pour cette œuvre. Avez-vous des questions ?" },
+    ]);
 
-	function handleSubmitMessage(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		const trimmedMessage = message.trim();
+    function handleSubmitMessage(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const trimmedMessage = message.trim();
 
-		if (!trimmedMessage) {
-			return;
-		}
+        if (!trimmedMessage) return;
 
-		setMessages((currentMessages) => [
-			...currentMessages,
-			{ id: Date.now(), author: "Vous", text: trimmedMessage },
-		]);
-		setMessage("");
-	}
+        setMessages((currentMessages) => [
+            ...currentMessages,
+            { id: Date.now(), author: "Vous", text: trimmedMessage },
+        ]);
+        setMessage("");
+    }
 
-	function handlePurchase(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		setIsPurchased(true);
-	}
+    function handlePurchase(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setIsPurchased(true);
+    }
 
-	return (
-		<main className="min-h-screen bg-[#180d2e] px-5 py-12 text-white sm:px-8 lg:px-12 lg:py-20">
-			<div className="mx-auto max-w-7xl">
-				<Link to="/" className="text-sm font-semibold text-[#d4af37] transition hover:text-[#e5c65f]">
-					&larr; Retour à la galerie
-				</Link>
+    return (
+        <main className="min-h-screen bg-zinc-950 px-5 py-12 sm:px-8 lg:px-12 lg:py-20">
+            <div className="mx-auto max-w-7xl">
+                
+                {/* Lien de retour discret et élégant */}
+                <Link 
+                    to="/" 
+                    className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-white"
+                >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Retour à la galerie
+                </Link>
 
-				<div className="mt-8 grid items-start gap-8 lg:grid-cols-2">
-					<section className="rounded-2xl border border-white/10 bg-[#24143d] p-6 shadow-xl sm:p-8">
-						<div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
-							<div>
-								<p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d4af37]">Échange direct</p>
-								<h1 className="mt-3 text-2xl font-semibold">Discuter avec l'artiste</h1>
-							</div>
-							<span className="text-sm text-emerald-300">Artiste disponible</span>
-						</div>
+                <div className="mt-8 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+                    
+                    {/* SECTION 1 : Le Chat (Design façon iMessage / Intercom) */}
+                    <section className="flex h-[500px] flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 shadow-2xl lg:h-[600px]">
+                        
+                        {/* En-tête du chat */}
+                        <div className="flex items-center justify-between border-b border-zinc-800/60 bg-zinc-900/50 px-6 py-4 backdrop-blur-md">
+                            <div>
+                                <h1 className="text-lg font-semibold tracking-tight text-white">L'Artiste</h1>
+                                {/* Le fameux point vert "En ligne" avec pulsation */}
+                                <div className="mt-1 flex items-center gap-2 text-xs font-medium text-zinc-400">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                                    </span>
+                                    En ligne
+                                </div>
+                            </div>
+                        </div>
 
-						<div className="mt-6 min-h-80 max-h-96 space-y-3 overflow-y-auto border-y border-white/10 py-5 pr-2">
-							{messages.map((chatMessage) => (
-								<div key={chatMessage.id} className={`max-w-xl rounded-xl px-4 py-3 text-sm ${chatMessage.author === "Vous" ? "ml-auto bg-[#7943a1]" : "bg-white/10"}`}>
-									<p className="mb-1 text-xs font-semibold text-[#ffe644]">{chatMessage.author}</p>
-									<p className="leading-6 text-white/85">{chatMessage.text}</p>
-								</div>
-							))}
-						</div>
+                        {/* Zone des messages */}
+                        <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-zinc-800">
+                            {messages.map((chatMessage) => {
+                                const isMe = chatMessage.author === "Vous";
+                                return (
+                                    <div 
+                                        key={chatMessage.id} 
+                                        className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
+                                    >
+                                        <div 
+                                            className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed sm:max-w-[75%] ${
+                                                isMe 
+                                                ? "rounded-br-sm bg-white text-zinc-950" 
+                                                : "rounded-bl-sm border border-zinc-800 bg-zinc-900 text-zinc-200"
+                                            }`}
+                                        >
+                                            {chatMessage.text}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
 
-						<form onSubmit={handleSubmitMessage} className="mt-6 flex flex-col gap-3 sm:flex-row">
-							<label className="sr-only" htmlFor="message">Votre message</label>
-							<input
-								id="message"
-								value={message}
-								onChange={(event) => setMessage(event.target.value)}
-								placeholder="Écrire un message..."
-								className="min-w-0 flex-1 rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-white outline-none placeholder:text-white/35 focus:border-[#d4af37]"
-							/>
-							<button type="submit" className="rounded-lg border border-[#d4af37] px-5 py-3 text-sm font-semibold text-[#d4af37] transition hover:bg-[#d4af37] hover:text-[#180d2e]">
-								Envoyer
-							</button>
-						</form>
-					</section>
+                        {/* Champ de saisie */}
+                        <form onSubmit={handleSubmitMessage} className="border-t border-zinc-800/60 bg-zinc-950/50 p-4">
+                            <label className="sr-only" htmlFor="message">Votre message</label>
+                            <div className="flex gap-3">
+                                <input
+                                    id="message"
+                                    value={message}
+                                    onChange={(event) => setMessage(event.target.value)}
+                                    placeholder="Écrire un message..."
+                                    className="flex-1 rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-2.5 text-sm text-white placeholder-zinc-500 outline-none transition-all focus:border-zinc-500 focus:bg-zinc-900 focus:ring-1 focus:ring-zinc-500"
+                                />
+                                <button 
+                                    type="submit" 
+                                    disabled={!message.trim()}
+                                    className="inline-flex shrink-0 items-center justify-center rounded-lg bg-zinc-800 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    Envoyer
+                                </button>
+                            </div>
+                        </form>
+                    </section>
 
-					<section className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl sm:p-8">
-						<p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d4af37]">Paiement</p>
-						<h2 className="mt-3 text-2xl font-semibold">Acheter cette œuvre</h2>
+                    {/* SECTION 2 : Checkout / Panier */}
+                    <section className="rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
+                        <div className="mb-8">
+                            <h2 className="text-2xl font-semibold tracking-tight text-white">Finaliser l'acquisition</h2>
+                            <p className="mt-2 text-sm text-zinc-400">Vérifiez les détails avant de confirmer la transaction.</p>
+                        </div>
 
-						<div className="mt-6 flex items-center justify-between rounded-xl border border-white/10 bg-black/15 p-4">
-							<div>
-								<p className="font-semibold">Œuvre Test</p>
-								<p className="mt-1 text-sm text-white/55">Référence #{id}</p>
-							</div>
-							<div className="flex items-center gap-2">
-								<span className="text-xl font-bold text-[#ffe644]">{artworkPrice}</span>
-								<img src={Coins} alt="Pièces" className="h-5 w-auto" />
-							</div>
-						</div>
+                        {/* Récapitulatif du produit */}
+                        <div className="flex items-center justify-between rounded-xl border border-zinc-800/60 bg-zinc-900/50 p-4">
+                            <div>
+                                <p className="font-medium text-white">Œuvre originale</p>
+                                <p className="mt-1 text-sm text-zinc-500">Référence #{id}</p>
+                            </div>
+                            <div className="flex items-center gap-1.5 rounded-lg bg-white/5 px-3 py-1.5">
+                                <span className="text-lg font-bold text-white">{artworkPrice}</span>
+                                <img src={Coins} alt="Pièces" className="h-4 w-auto object-contain drop-shadow-sm" />
+                            </div>
+                        </div>
 
-						<div className="mt-6 rounded-xl border border-[#d4af37]/30 bg-[#d4af37]/10 p-4">
-							<p className="text-sm leading-6 text-white/70">
-								Le montant sera directement débité de ton portefeuille de coins.
-							</p>
-							<div className="mt-4 flex items-center justify-between border-t border-[#d4af37]/20 pt-4">
-								<span className="text-white/70">À payer</span>
-								<span className="flex items-center gap-2 text-xl font-bold text-[#ffe644]">
-									{artworkPrice}
-									<img src={Coins} alt="Coins" className="h-5 w-auto" />
-								</span>
-							</div>
-						</div>
+                        {/* Détail de facturation */}
+                        <div className="mt-6 rounded-xl border border-zinc-800/60 bg-zinc-900/30 p-5">
+                            <ul className="space-y-3 text-sm text-zinc-400">
+                                <li className="flex justify-between">
+                                    <span>Sous-total</span>
+                                    <span className="text-zinc-300">{artworkPrice}</span>
+                                </li>
+                            </ul>
+                            
+                            <div className="mt-4 flex items-center justify-between border-t border-zinc-800/60 pt-4">
+                                <span className="text-sm font-medium text-zinc-300">Total à payer</span>
+                                <span className="flex items-center gap-2 text-xl font-bold text-white">
+                                    {artworkPrice}
+                                    <img src={Coins} alt="Coins" className="h-5 w-auto drop-shadow-sm" />
+                                </span>
+                            </div>
+                        </div>
 
-						<form onSubmit={handlePurchase} className="mt-6">
-							<button type="submit" disabled={isPurchased} className="w-full rounded-lg bg-[#d4af37] px-5 py-3 font-semibold text-[#180d2e] transition hover:bg-[#e5c65f] disabled:cursor-not-allowed disabled:opacity-60">
-								{isPurchased ? "Œuvre achetée" : `Payer ${artworkPrice} coins`}
-							</button>
-						</form>
-						{isPurchased && <p className="mt-4 text-center text-sm text-emerald-300">Ton achat a bien été enregistré.</p>}
-					</section>
-				</div>
-			</div>
-		</main>
-	);
+                        <p className="mt-4 text-xs text-zinc-500 text-center">
+                            Le montant sera directement débité de votre portefeuille sécurisé.
+                        </p>
+
+                        {/* Bouton d'achat */}
+                        <form onSubmit={handlePurchase} className="mt-8">
+                            <button 
+                                type="submit" 
+                                disabled={isPurchased} 
+                                className="flex w-full items-center justify-center rounded-lg bg-white px-5 py-3.5 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:cursor-not-allowed disabled:opacity-60"
+                            >
+                                {isPurchased ? (
+                                    <span className="flex items-center gap-2">
+                                        <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Transaction validée
+                                    </span>
+                                ) : (
+                                    `Confirmer le paiement de ${artworkPrice} coins`
+                                )}
+                            </button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </main>
+    );
 }
