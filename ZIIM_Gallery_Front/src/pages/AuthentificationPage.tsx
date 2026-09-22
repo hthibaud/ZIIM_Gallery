@@ -1,5 +1,5 @@
 import HeaderComponent from "../components/Header"
-import AuthentificationComponent from "../components/utils/Authentification"
+import RegisterComponent from "../components/utils/register"
 import FooterComponent from "../components/Footer"
 
 export default function AuthentificationPage(){
@@ -7,7 +7,7 @@ export default function AuthentificationPage(){
               <div className="bg-gray-900">
                   <HeaderComponent />
                   <div className="min-h-screen">
-                      <AuthentificationComponent />
+                      <RegisterComponent />
                   </div>
                   <FooterComponent />
             </div>
