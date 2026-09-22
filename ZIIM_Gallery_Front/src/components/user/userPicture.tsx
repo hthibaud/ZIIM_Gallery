@@ -7,7 +7,11 @@ type UserPictureProps = {
 
 const MINIO_URL = import.meta.env.VITE_MINIO_URL ?? "http://localhost:9000";
 
-export default function UserPicture({ profilePicture, size = 64 }: UserPictureProps) {
+export default function UserPicture({ 
+    profilePicture, 
+    size = 64,
+}: UserPictureProps) {
+    
     const pictureUrl = profilePicture
         ? `${MINIO_URL}/avatars/${profilePicture}`
         : defaultUserPicture;
@@ -15,13 +19,19 @@ export default function UserPicture({ profilePicture, size = 64 }: UserPicturePr
     return (
         <img
             src={pictureUrl}
-            alt="Photo de profile"
+            alt="Photo de profil"
             width={size}
             height={size}
             loading="lazy"
-            className="rounded-full object-cover"
+            style={{ width: size, height: size }} 
+            className={`
+                shrink-0 rounded-full object-cover 
+                bg-zinc-800 shadow-sm ring-1 ring-zinc-800/60
+            `}
             onError={(event) => {
-                event.currentTarget.src = defaultUserPicture;
+                if (event.currentTarget.src !== defaultUserPicture) {
+                    event.currentTarget.src = defaultUserPicture;
+                }
             }}
         />
     );
