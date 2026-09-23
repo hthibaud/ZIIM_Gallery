@@ -4,13 +4,11 @@ export default function NotFound() {
     return (
         <main className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden bg-zinc-950 px-5 py-24 text-center sm:px-8 lg:px-12">
             
-            {/* Effet de profondeur neutre et très subtil (remplace les blobs fluos) */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div className="h-120 w-120 rounded-full bg-zinc-900/40 blur-[100px]" />
             </div>
 
             <div className="relative z-10 w-full max-w-2xl">
-                {/* Badge 404 (Design "Pill" moderne) */}
                 <span className="inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1 text-sm font-medium text-zinc-400 backdrop-blur-sm">
                     Erreur 404
                 </span>
@@ -23,7 +21,6 @@ export default function NotFound() {
                     L&apos;œuvre ou la page que tu recherches semble avoir disparu, ou bien elle n&apos;a jamais fait partie de la galerie.
                 </p>
                 
-                {/* Actions (Primaire + Secondaire) */}
                 <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <Link
                         to="/"

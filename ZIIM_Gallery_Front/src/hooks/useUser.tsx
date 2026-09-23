@@ -44,7 +44,6 @@ export function useUser(userId: string | undefined): UseUserReturn {
                 const data: UserData = await response.json();
                 setUser(data);
             } catch (err: unknown) {
-                // On ignore l'erreur si elle est causée par l'annulation volontaire de la requête
                 if (err instanceof Error && err.name !== 'AbortError') {
                     setError(err.message || "Une erreur inconnue est survenue");
                     setUser(null);

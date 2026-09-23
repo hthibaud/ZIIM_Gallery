@@ -24,7 +24,6 @@ export default function ArtworkGalleryCard({
     artwork
 }: ArtworkGalleryCardProps) {
     
-    // Données fictives
     const Data: ArtworkGalleryCardData = artwork ?? {
         name: "Test",
         details: "Voici une œuvre de test avec une description qui peut s'étaler sur plusieurs lignes pour voir le rendu.",
@@ -44,11 +43,9 @@ export default function ArtworkGalleryCard({
     return (
         <article 
             className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-800 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700 hover:shadow-xl hover:shadow-black/50"
-            // On utilise 'style' pour la couleur dynamique, et un fallback Tailwind classique si non fourni
             style={{ backgroundColor: card_backgound_color }}
             {...(!card_backgound_color && { className: "bg-zinc-900/50" })}
         >
-            {/* Zone de l'image */}
             <div className="relative aspect-4/3 w-full overflow-hidden bg-zinc-800">
                 <img 
                     src={ImgTemplate} 
@@ -56,14 +53,12 @@ export default function ArtworkGalleryCard({
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 />
                 
-                {/* Badge de disponibilité (Design "Glassmorphism" discret) */}
                 <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-md">
                     <span className={`h-1.5 w-1.5 rounded-full ${Data.for_sale ? "bg-emerald-400" : "bg-zinc-400"}`} />
                     {Data.for_sale ? "Disponible" : "Archivée"}
                 </span>
             </div>
 
-            {/* Contenu */}
             <div className="flex flex-1 flex-col justify-between p-5">
                 <div className="space-y-1">
                     <h2 className="truncate text-lg font-bold tracking-tight text-white" title={Data.name}>
@@ -74,7 +69,6 @@ export default function ArtworkGalleryCard({
                     </p>
                 </div>
 
-                {/* Pied de carte (Date et Prix) */}
                 <div className="mt-5 flex items-end justify-between gap-4 border-t border-zinc-800/60 pt-4">
                     <div>
                         <p className="text-[11px] font-medium text-zinc-500">

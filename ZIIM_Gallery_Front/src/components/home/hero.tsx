@@ -2,20 +2,8 @@ export default function Hero() {
     return (
         <section className="relative overflow-hidden border-b border-zinc-800/60 px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
             
-            {/* 
-              On ne met plus de fond ni de gradient ici !
-              La transparence laisse passer le "Glow" défini dans la Homepage, 
-              ce qui unifie toute la page.
-            */}
-            
             <div className="relative mx-auto max-w-7xl">
                 <div className="max-w-3xl">
-                    
-                    {/* 
-                      Le "Eyebrow" (sur-titre) :
-                      Remplacement du texte doré espacé par un "Badge Pilule" moderne.
-                      C'est la norme actuelle (Vercel, OpenAI, Linear) pour introduire un produit.
-                    */}
                     <div className="mb-6 inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1 text-sm font-medium text-zinc-400 backdrop-blur-sm">
                         <span className="mr-2 flex h-1.5 w-1.5 rounded-full bg-white opacity-80"></span>
                         ZIIM Gallery
@@ -29,7 +17,6 @@ export default function Hero() {
                         Explorez des œuvres, découvrez des artistes et construisez une galerie qui vous ressemble.
                     </p>
                     
-                    {/* Les boutons : fort contraste (Blanc) et fantôme (Zinc) */}
                     <div className="mt-10 flex flex-wrap items-center gap-4">
                         <a 
                             href="/user/0" 

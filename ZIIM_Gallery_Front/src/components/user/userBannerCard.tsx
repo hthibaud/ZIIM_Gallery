@@ -25,7 +25,6 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
     const user = updatedUser ?? fetchedUser;
     const connectedUserId = getConnectedUserId();
     
-    // Constantes à relier à ton backend plus tard
     const gallery_name: string = "";
     const posts_count: number = 0;
     const followers_count: number = 0;
@@ -34,7 +33,6 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
     const minioUrl = import.meta.env.VITE_MINIO_URL ?? "http://localhost:9000";
     const bannerUrl = user?.profile_banner ? `${minioUrl}/avatars/${user.profile_banner}` : null;
 
-    // État d'erreur épuré
     if (error) {
         return (
             <div className="flex h-48 items-center justify-center border-b border-zinc-200 bg-zinc-50 text-sm text-zinc-500 dark:border-zinc-800 dark:bg-zinc-950">
@@ -43,7 +41,6 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
         );
     }
 
-    // État de chargement professionnel (spinner)
     if (isLoading || !user) {
         return (
             <div className="flex h-64 items-center justify-center border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
@@ -54,7 +51,6 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
 
     return (
         <section className="overflow-hidden border-b border-zinc-200 bg-white text-left dark:border-zinc-800 dark:bg-zinc-950">
-            {/* Zone de la bannière */}
             <div className="relative h-40 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900 sm:h-52">
                 {bannerUrl ? (
                     <img 
@@ -63,11 +59,9 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                         className="absolute inset-0 h-full w-full object-cover" 
                     />
                 ) : (
-                    /* Fallback propre si pas de bannière (dégradé gris très subtil) */
                     <div className="absolute inset-0 bg-linear-to-tr from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900" />
                 )}
                 
-                {/* Léger voile pour assurer le contraste si tu as des boutons par-dessus */}
                 <div className="absolute inset-0 bg-black/10" />
 
                 {connectedUserId === id && (
@@ -84,11 +78,9 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                 )}
             </div>
 
-            {/* Zone des informations utilisateur */}
             <div className="relative px-5 pb-8 sm:px-8">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     
-                    {/* Avatar et Nom */}
                     <div className="flex items-end gap-5">
                         <div className="-mt-12 inline-block rounded-full border-4 border-white bg-white dark:border-zinc-950 dark:bg-zinc-950 sm:-mt-16">
                             <UserPicture profilePicture={user.profile_picture} size={112} />
@@ -103,7 +95,6 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                         </div>
                     </div>
 
-                    {/* Bouton d'action principal */}
                     {connectedUserId !== id && (
                         <button
                             type="button"
@@ -114,14 +105,12 @@ export default function UserBannerCard({ id }: UserBannerCardProps) {
                     )}
                 </div>
 
-                {/* Biographie */}
                 {user.bio && (
                     <p className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {user.bio}
                     </p>
                 )}
 
-                {/* Statistiques (Design compact en ligne) */}
                 <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
                     <div className="flex items-center gap-1.5">
                         <dd className="font-semibold text-zinc-900 dark:text-white">{posts_count}</dd>

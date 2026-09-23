@@ -9,7 +9,6 @@ export default function SearchBar() {
 
     return (
         <div className="group relative w-full">
-            {/* Icône de recherche (SVG propre, parfaitement centrée) */}
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-500 transition-colors group-focus-within:text-zinc-300">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

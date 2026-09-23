@@ -34,7 +34,6 @@ export default function FooterComponent() {
       <footer className="border-t border-zinc-800/60 bg-zinc-950 px-5 py-12 sm:px-8 lg:px-12">
           <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
               
-              {/* Section Marque & Slogan */}
               <div className="space-y-2">
                   <span className="text-xl font-bold tracking-tight text-white">
                       ZIIM Gallery
@@ -44,7 +43,6 @@ export default function FooterComponent() {
                   </p>
               </div>
 
-              {/* Section Navigation */}
               <nav aria-label="Menu du pied de page">
                   <ul className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8">
                       <li>
@@ -81,7 +79,6 @@ export default function FooterComponent() {
               
           </div>
 
-          {/* Section Copyright */}
           <div className="mx-auto mt-12 max-w-7xl border-t border-zinc-800/60 pt-8">
               <p className="text-xs text-zinc-600 md:text-center">
                   &copy; {new Date().getFullYear()} ZIIM Gallery. Tous droits réservés.

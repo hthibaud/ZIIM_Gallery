@@ -3,7 +3,6 @@ import ArtworkGalleryCard from '../item/artworkGalleryCard';
 
 export default function PaintCarousel() {
     const carouselRef = useRef<HTMLDivElement>(null);
-    // État pour savoir si on doit mettre le défilement automatique en pause
     const [isPaused, setIsPaused] = useState(false);
 
     const artworks = [
@@ -17,7 +16,6 @@ export default function PaintCarousel() {
         { id: "8", userId: "lina", name: "Horizon doux", details: "Un paysage suspendu entre souvenir, brume et lumière rose.", price: 360, datetime: "2026-09-04", creator_id: "lina", for_sale: true },
     ];
 
-    // Fonction de défilement manuel
     const scroll = (direction: 'left' | 'right') => {
         if (carouselRef.current) {
             const scrollAmount = direction === 'left' ? -320 : 320;
@@ -25,27 +23,21 @@ export default function PaintCarousel() {
         }
     };
 
-    // Le moteur du défilement automatique
     useEffect(() => {
-        // Si la souris est sur le carrousel, on ne lance pas l'intervalle
         if (isPaused) return;
 
         const intervalId = setInterval(() => {
             if (carouselRef.current) {
                 const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
                 
-                // On vérifie si on est arrivé tout à la fin du carrousel (avec une petite marge de 10px)
                 if (scrollLeft + clientWidth >= scrollWidth - 10) {
-                    // Retour doux au début
                     carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
-                    // Sinon, on avance d'une carte
                     carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
                 }
             }
-        }, 3500); // Défile toutes les 3.5 secondes (ajuste selon tes préférences)
+        }, 3500);
 
-        // Nettoyage de l'intervalle quand le composant est démonté ou mis en pause
         return () => clearInterval(intervalId);
     }, [isPaused]);
 
@@ -53,10 +45,8 @@ export default function PaintCarousel() {
         <section 
             id="recent-artworks" 
             className="relative py-16 sm:py-24"
-            // On met en pause quand la souris entre, et on relance quand elle sort
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            // Pareil pour le tactile sur mobile
             onTouchStart={() => setIsPaused(true)}
             onTouchEnd={() => setIsPaused(false)}
         >

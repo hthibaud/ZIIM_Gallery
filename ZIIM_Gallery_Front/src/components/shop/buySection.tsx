@@ -41,7 +41,6 @@ export default function BuySection() {
         <main className="min-h-screen bg-zinc-950 px-5 py-12 sm:px-8 lg:px-12 lg:py-20">
             <div className="mx-auto max-w-7xl">
                 
-                {/* Lien de retour discret et élégant */}
                 <Link 
                     to="/" 
                     className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-white"
@@ -54,14 +53,11 @@ export default function BuySection() {
 
                 <div className="mt-8 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
                     
-                    {/* SECTION 1 : Le Chat (Design façon iMessage / Intercom) */}
                     <section className="flex h-[500px] flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 shadow-2xl lg:h-[600px]">
                         
-                        {/* En-tête du chat */}
                         <div className="flex items-center justify-between border-b border-zinc-800/60 bg-zinc-900/50 px-6 py-4 backdrop-blur-md">
                             <div>
                                 <h1 className="text-lg font-semibold tracking-tight text-white">L'Artiste</h1>
-                                {/* Le fameux point vert "En ligne" avec pulsation */}
                                 <div className="mt-1 flex items-center gap-2 text-xs font-medium text-zinc-400">
                                     <span className="relative flex h-2 w-2">
                                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
@@ -72,7 +68,6 @@ export default function BuySection() {
                             </div>
                         </div>
 
-                        {/* Zone des messages */}
                         <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-zinc-800">
                             {messages.map((chatMessage) => {
                                 const isMe = chatMessage.author === "Vous";
@@ -95,7 +90,6 @@ export default function BuySection() {
                             })}
                         </div>
 
-                        {/* Champ de saisie */}
                         <form onSubmit={handleSubmitMessage} className="border-t border-zinc-800/60 bg-zinc-950/50 p-4">
                             <label className="sr-only" htmlFor="message">Votre message</label>
                             <div className="flex gap-3">
@@ -117,14 +111,12 @@ export default function BuySection() {
                         </form>
                     </section>
 
-                    {/* SECTION 2 : Checkout / Panier */}
                     <section className="rounded-2xl border border-zinc-800 bg-zinc-900/20 p-6 sm:p-8">
                         <div className="mb-8">
                             <h2 className="text-2xl font-semibold tracking-tight text-white">Finaliser l'acquisition</h2>
                             <p className="mt-2 text-sm text-zinc-400">Vérifiez les détails avant de confirmer la transaction.</p>
                         </div>
 
-                        {/* Récapitulatif du produit */}
                         <div className="flex items-center justify-between rounded-xl border border-zinc-800/60 bg-zinc-900/50 p-4">
                             <div>
                                 <p className="font-medium text-white">Œuvre originale</p>
@@ -136,7 +128,6 @@ export default function BuySection() {
                             </div>
                         </div>
 
-                        {/* Détail de facturation */}
                         <div className="mt-6 rounded-xl border border-zinc-800/60 bg-zinc-900/30 p-5">
                             <ul className="space-y-3 text-sm text-zinc-400">
                                 <li className="flex justify-between">
@@ -158,7 +149,6 @@ export default function BuySection() {
                             Le montant sera directement débité de votre portefeuille sécurisé.
                         </p>
 
-                        {/* Bouton d'achat */}
                         <form onSubmit={handlePurchase} className="mt-8">
                             <button 
                                 type="submit" 

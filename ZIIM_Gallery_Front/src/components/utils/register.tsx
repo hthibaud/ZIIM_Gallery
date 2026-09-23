@@ -202,7 +202,6 @@ export default function RegisterComponent() {
                 <div className="absolute inset-0 z-0 bg-black/60 backdrop-blur-[2px]" />
                 <section className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 shadow-2xl">
                     
-                    {/* Barre de progression minimaliste */}
                     <div className="flex h-1 w-full bg-zinc-900">
                         <div 
                             className="h-full bg-white transition-all duration-300 ease-in-out" 
@@ -211,12 +210,10 @@ export default function RegisterComponent() {
                     </div>
 
                     <div className="px-6 py-8 sm:px-8 sm:py-10">
-                        {/* En-tête dynamique dynamique selon l'étape */}
                         <div className="mb-8 text-center">
                             <h1 className="text-2xl font-semibold tracking-tight text-white">
                                 {step === 1 && "Créer un compte"}
                                 {step === 2 && "Votre profil public"}
-                                {step === 3 && "Identité visuelle"}
                             </h1>
                             <p className="mt-2 text-sm text-zinc-400">
                                 {step === 1 && "Rejoignez ZIIM Gallery et partagez votre univers."}
@@ -227,7 +224,6 @@ export default function RegisterComponent() {
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             
-                            {/* ÉTAPE 1 : Identifiants */}
                             {step === 1 && (
                                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                                     <div className="space-y-1.5">
@@ -245,7 +241,6 @@ export default function RegisterComponent() {
                                 </div>
                             )}
 
-                            {/* ÉTAPE 2 : Informations publiques */}
                             {step === 2 && (
                                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                                     <div className="space-y-1.5">
@@ -262,7 +257,6 @@ export default function RegisterComponent() {
                                 </div>
                             )}
 
-                            {/* ÉTAPE 3 : Médias */}
                             {step === 3 && (
                                 <div className="space-y-5 animate-in fade-in slide-in-from-bottom-2 duration-300">
                                     <label className="group mx-auto flex h-28 w-28 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-zinc-700 bg-zinc-900/50 transition-all hover:border-zinc-500 hover:bg-zinc-800">
@@ -292,7 +286,6 @@ export default function RegisterComponent() {
                                 </div>
                             )}
 
-                            {/* Gestion des erreurs */}
                             {error && (
                                 <div role="alert" className="flex items-center gap-3 rounded-lg border border-red-900/50 bg-red-900/10 px-4 py-3 text-sm text-red-400">
                                     <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
@@ -300,7 +293,6 @@ export default function RegisterComponent() {
                                 </div>
                             )}
 
-                            {/* Actions */}
                             <div className="mt-8 flex gap-3 pt-2">
                                 {step > 1 && (
                                     <button 

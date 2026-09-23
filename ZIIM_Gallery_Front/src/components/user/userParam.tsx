@@ -37,7 +37,6 @@ export default function UserParam({
                 onSubmit={onSubmit} 
                 className="flex max-h-[calc(100vh-2rem)] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-2xl"
             >
-                {/* En-tête */}
                 <div className="flex items-center justify-between border-b border-zinc-800/60 px-6 py-5">
                     <div>
                         <h2 className="text-lg font-semibold tracking-tight text-white">Paramètres du profil</h2>
@@ -55,10 +54,8 @@ export default function UserParam({
                     </button>
                 </div>
 
-                {/* Contenu défilant */}
                 <div className="space-y-8 overflow-y-auto px-6 py-6 scrollbar-thin scrollbar-thumb-zinc-800">
                     
-                    {/* Section : Informations publiques */}
                     <section className="space-y-4">
                         <div className="space-y-1.5">
                             <label htmlFor="username" className="block text-sm font-medium text-zinc-300">
@@ -93,12 +90,10 @@ export default function UserParam({
                         </div>
                     </section>
 
-                    {/* Section : Identité visuelle */}
                     <section className="space-y-4">
                         <h3 className="text-sm font-medium text-zinc-300">Images du profil</h3>
                         
                         <div className="grid gap-4 sm:grid-cols-2">
-                            {/* Upload Avatar */}
                             <label className="group relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-zinc-800 bg-zinc-900/20 p-6 transition-all hover:border-zinc-600 hover:bg-zinc-900/50">
                                 <div className="rounded-full bg-zinc-800 p-2.5 text-zinc-400 group-hover:text-white transition-colors">
                                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -114,7 +109,6 @@ export default function UserParam({
                                 <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => onImageChange(event, "avatar")} className="sr-only" />
                             </label>
 
-                            {/* Upload Bannière */}
                             <label className="group relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-zinc-800 bg-zinc-900/20 p-6 transition-all hover:border-zinc-600 hover:bg-zinc-900/50">
                                 <div className="rounded-md bg-zinc-800 p-2.5 text-zinc-400 group-hover:text-white transition-colors">
                                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -132,7 +126,6 @@ export default function UserParam({
                         </div>
                     </section>
 
-                    {/* Gestion des erreurs */}
                     {error && (
                         <div role="alert" className="flex items-center gap-3 rounded-lg border border-red-900/50 bg-red-900/10 px-4 py-3 text-sm text-red-400">
                             <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -143,7 +136,6 @@ export default function UserParam({
                     )}
                 </div>
 
-                {/* Pied de page / Actions */}
                 <div className="flex flex-col-reverse gap-3 border-t border-zinc-800/60 bg-zinc-900/30 px-6 py-4 sm:flex-row sm:justify-end">
                     <button 
                         type="button" 

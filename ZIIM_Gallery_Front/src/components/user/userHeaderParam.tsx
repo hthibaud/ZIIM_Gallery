@@ -130,7 +130,6 @@ export default function UserHeaderParam({ user, onUserUpdated }: UserHeaderParam
 
     return (
         <>
-            {/* Barre d'outils flottante type "Pilule" */}
             <nav 
                 aria-label="Actions de la galerie" 
                 className="absolute right-4 top-4 z-10 flex items-center gap-1.5 rounded-full border border-zinc-700/60 bg-zinc-950/50 p-1.5 shadow-lg backdrop-blur-md sm:right-6 sm:top-6"
@@ -157,7 +156,6 @@ export default function UserHeaderParam({ user, onUserUpdated }: UserHeaderParam
                     title="Personnaliser la page profil"
                     className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-zinc-800/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
                 >
-                    {/* Opacité ajustée pour fondre l'icône dans l'UI sombre, au lieu d'un 'invert' trop brutal */}
                     <img src={Paint} alt="" className="h-4 w-4 opacity-75 invert transition-opacity hover:opacity-100" />
                 </button>
             </nav>

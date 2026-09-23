@@ -29,15 +29,12 @@ export default function Login() {
     return (
         <main className="relative flex min-h-screen items-center justify-center bg-[url('./assets/bg-gallery.png')] bg-cover bg-center bg-no-repeat px-4 py-12 sm:px-6 lg:px-8">
             
-            {/* Voile sombre pour assombrir l'image de fond et faire ressortir le formulaire */}
             <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
 
-            {/* Lueur d'ambiance au centre, par-dessus l'image assombrie */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div className="h-120 w-120 rounded-full bg-zinc-900/40 blur-[120px]" />
             </div>
 
-            {/* Le formulaire (z-10 pour être au-dessus du fond et du voile) */}
             <section className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-950/95 shadow-2xl backdrop-blur-md">
                 <div className="px-6 py-8 sm:px-8 sm:py-10">
                     <div className="mb-8 text-center">
