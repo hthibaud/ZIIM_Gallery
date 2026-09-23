@@ -25,7 +25,7 @@ export default function HeaderComponent() {
     updateUserId();
     window.addEventListener("auth-change", updateUserId);
 
-    return () => window.removeEventListener("auth-change", updateUserId);
+  return () => window.removeEventListener("auth-change", updateUserId);
   }, []);
 
     return (

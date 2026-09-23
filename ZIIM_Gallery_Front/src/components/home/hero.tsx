@@ -10,7 +10,7 @@ export default function Hero() {
                     </div>
                     
                     <h1 className="max-w-2xl text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                        L&apos;art mérite un espace à sa hauteur.
+                        L'art mérite un espace à sa hauteur.
                     </h1>
                     
                     <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
