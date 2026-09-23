@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/homepage";
 import User from "./pages/user";
-import AuthentificationPage from "./components/utils/Authentification";
+import RegisterPage from "./components/utils/register";
 import Login from "./components/utils/login";
 import HeaderComponent from "./components/Header";
 import FooterComponent from "./components/Footer";
@@ -16,7 +16,7 @@ export default function Router(){
                 <Routes>
                     <Route path="/" element={<Homepage />} />
                     <Route path="/user/:id" element={<User />} />
-                    <Route path="/authentification" element={<AuthentificationPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/buy/:id" element={<BuySection />} />
                     <Route path ="*" element = {<NotFound />} />
