@@ -59,7 +59,7 @@ export default function FooterComponent() {
                       <li>
                         
                           <Link
-                              to="/authentification"
+                              to="/register"
                               onClick={logout}
                               className="text-sm font-medium text-zinc-400 transition-colors hover:text-red-500"
                           >
