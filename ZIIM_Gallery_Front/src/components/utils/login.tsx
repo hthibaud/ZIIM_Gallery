@@ -38,7 +38,7 @@ export default function Login() {
             <section className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-950/95 shadow-2xl backdrop-blur-md">
                 <div className="px-6 py-8 sm:px-8 sm:py-10">
                     <div className="mb-8 text-center">
-                        <h1 className="text-2xl font-semibold tracking-tight text-white">
+                        <h1 className="text-4xl font-semibold tracking-tight text-white">
                             Bon retour
                         </h1>
                         <p className="mt-2 text-sm text-zinc-400">
