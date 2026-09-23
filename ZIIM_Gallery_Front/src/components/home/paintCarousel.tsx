@@ -93,7 +93,7 @@ export default function PaintCarousel() {
                     {artworks.map((artwork, index) => (
                         <div 
                             key={artwork.id} 
-                            className="w-[280px] shrink-0 snap-start animate-fade-in-up opacity-0 sm:w-80"
+                            className="w-70 shrink-0 snap-start animate-fade-in-up opacity-0 sm:w-80"
                             style={{ animationDelay: `${index * 150}ms` }}
                         >
                             <ArtworkGalleryCard

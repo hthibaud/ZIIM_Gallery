@@ -53,7 +53,7 @@ export default function BuySection() {
 
                 <div className="mt-8 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
                     
-                    <section className="flex h-[500px] flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 shadow-2xl lg:h-[600px]">
+                    <section className="flex h-125 flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 shadow-2xl lg:h-150">
                         
                         <div className="flex items-center justify-between border-b border-zinc-800/60 bg-zinc-900/50 px-6 py-4 backdrop-blur-md">
                             <div>
